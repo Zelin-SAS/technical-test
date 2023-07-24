@@ -27,4 +27,4 @@ As a user :
 - The code's quality is important.
 
 ## How to
-You can either fork this repository or clone it and push the result to an independent repository on your GitHub page.
+You can either fork this repository or push the result to an independent repository on your GitHub page.
