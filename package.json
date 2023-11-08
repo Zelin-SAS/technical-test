@@ -1,0 +1,28 @@
+{
+  "name": "technical-test-zelin",
+  "version": "1.0.0",
+  "description": "Technical-test-zelin-personal-library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlorianLUSSON/technical-test-Zelin.git"
+  },
+  "author": "Florian LUSSON",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlorianLUSSON/technical-test-Zelin/issues"
+  },
+  "homepage": "https://github.com/FlorianLUSSON/technical-test-Zelin#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
