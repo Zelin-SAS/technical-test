@@ -3,14 +3,14 @@ const router = express.Router();
 const bookModel = require("../models/bookModel");
 
 router.post("/", (req, res) => {
-  const { Name, Author, Evaluation, Last_change } = req.body;
+  const { Name, Author, Evaluation, Last_update } = req.body;
 
   const newBook = new bookModel({
     // Utilisez "commandeModel" au lieu de "Commande"
     Name,
     Author,
     Evaluation,
-    Last_change,
+    Last_update,
   });
 
   newBook
@@ -46,6 +46,34 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     console.error("Erreur lors de la récupération du livre:", error);
     res.status(500).send("Erreur serveur");
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const bookId = req.params.id;
+
+  try {
+    const updatedBook = await bookModel.findByIdAndUpdate(
+      bookId,
+      {
+        $set: {
+          Name: req.body.Name,
+          Author: req.body.Author,
+          Evaluation: req.body.Evaluation,
+          Last_update: req.body.Last_update,
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedBook) {
+      return res.status(404).json({ message: "Livre non trouvé" });
+    }
+
+    res.json(updatedBook);
+  } catch (error) {
+    console.error("Erreur lors de la modification du livre:", error);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 });
 

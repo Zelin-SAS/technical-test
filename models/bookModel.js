@@ -13,7 +13,7 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  Last_change: {
+  Last_update: {
     type: String,
     required: true,
   },
