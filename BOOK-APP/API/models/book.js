@@ -5,6 +5,7 @@ const {userSchema} = require('./user');
 const Book = mongoose.model('Book', new mongoose.Schema({
     title: String,
     author: String,
+    image: String,
     user: {
         type: userSchema,
     }
