@@ -3,10 +3,11 @@ import apiClient from '../services/api-client'
 import { CanceledError } from 'axios'
 
 
-interface Book {
+export interface Book {
     id: number;
     title: string;
     author: string;
+    image: string;
 }
 
 
