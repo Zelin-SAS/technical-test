@@ -4,14 +4,11 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-
-//get books
 router.get('/', async (req, res) => {
     const books = await Book.find();
     res.send(books);
 });
 
-//create a book
 router.post('/', async (req, res) =>{
     const user = await User.findById(req.body.userId);
     const book = new Book({ 
@@ -28,7 +25,6 @@ router.post('/', async (req, res) =>{
     res.send(book);
 });
 
-//update a book
 router.put('/:id', async (req, res) =>{
     const book = await Book.findByIdAndUpdate(req.params.id, {title: req.body.title }, {new: true });
     
@@ -37,7 +33,6 @@ router.put('/:id', async (req, res) =>{
     res.send(book);
 });
 
-//delete a book
 router.delete('/:id', async (req, res) =>{
     const book = await Book.findByIdAndRemove(req.params.id);
     
@@ -46,7 +41,6 @@ router.delete('/:id', async (req, res) =>{
     res.send(book);
 });
 
-//find byId
 router.get('/:id', async (req, res) =>{
     const book = await Book.findById(req.params.id);
     
