@@ -9,6 +9,8 @@ import { useState } from "react";
 
 function App() {
   const [selectedUser, setSelectedUser] = useState <User | null>(null);
+  
+  
   return (<Grid templateAreas={{
     base: `"nav" " aside"`,
     lg: `"nav nav" "aside main"`
