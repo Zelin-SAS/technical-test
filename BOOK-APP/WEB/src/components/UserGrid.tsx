@@ -4,9 +4,10 @@ import { UserBadgeSkeleton } from './UserBadgeSkeleten';
 
 interface Props {
     onSelectUser: (user: User) => void;
+    selectedUser: User | null;
 }
 
-export const UserGrid = ({onSelectUser}:Props) => {
+export const UserGrid = ({selectedUser, onSelectUser}:Props) => {
   
     const {data, error, isLoading} = useUsers();
     const skeletons = [1, 2, 3, 4, 5, 6];
@@ -17,7 +18,7 @@ export const UserGrid = ({onSelectUser}:Props) => {
             {isLoading  && skeletons.map(Skeleton => <UserBadgeSkeleton key={Skeleton}/>)}
             <SimpleGrid  columns={1} spacingX='100px' spacingY='20px' padding={10} spacing={10}>
                 {data.map((user: User) => (
-                <Flex width={'100%'} boxShadow={'dark-lg'} as='button' ml='10' overflow={"hidden"} borderRadius={15} onClick={()=>onSelectUser(user)}>
+                <Flex width={'100%'} boxShadow={'dark-lg'} as='button' ml='10' overflow={"hidden"} borderRadius={15} onClick={()=>onSelectUser(user)} fontWeight={user.book === selectedUser?.book ? 'bold' : 'normal'}>
                 <Box  width={'100%'} padding='7'>
                   <HStack  padding={1} borderRadius={10}>
                   <Avatar src='https://c1.klipartz.com/pngpicture/245/560/sticker-png-person-icon-avatar-icon-design-user-profile-face-silhouette-head-line-art.png'/>

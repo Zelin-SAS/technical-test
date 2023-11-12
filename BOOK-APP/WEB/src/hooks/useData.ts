@@ -26,7 +26,7 @@ const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?:
         
         return () => controller.abort();
 
-    }, deps? [...deps] : []);
+    }, deps ? [...deps] : []);
 
     return {data, error, isLoading };
 }
