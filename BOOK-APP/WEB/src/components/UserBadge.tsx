@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Flex, Text } from "@chakra-ui/react"
+import { Avatar, Badge, Box, Button, Flex, HStack, Text } from "@chakra-ui/react"
 import { User } from "../hooks/useUsers"
 
 interface Props {
@@ -8,16 +8,17 @@ interface Props {
 
 export const UserBadge = ({user}: Props) => {
   return (
-    <Flex padding={10} backgroundColor={'#EDF2F7'} borderRadius={15}>
-        <Avatar src='https://cdn4.iconfinder.com/data/icons/web-ui-color/128/Account-512.png' />
-        <Box ml='3'>
-        <Text fontWeight='bold'>
-            {user.name}
-            <Badge ml='1' colorScheme='green'>
-            New
-            </Badge>
-        </Text>
-        <Text fontSize='sm'>{user.email}</Text>
+    <Flex width={'100%'} boxShadow={'dark-lg'} as='button' ml='10' overflow={"hidden"} borderRadius={15}>
+      <Box  width={'100%'} padding='7'  onClick={() => console.log(user)}>
+        <HStack  padding={1} borderRadius={10}>
+        <Avatar src='https://c1.klipartz.com/pngpicture/245/560/sticker-png-person-icon-avatar-icon-design-user-profile-face-silhouette-head-line-art.png'/>
+       
+        <HStack width={'100%'} justifyContent={"space-between"}  padding='10px' borderRadius={10}>
+          <Text fontWeight='bold'>{user.name}</Text>
+          <Button>ADD-BOOK</Button>
+        </HStack>
+        
+        </HStack>
         </Box>
   </Flex>
   

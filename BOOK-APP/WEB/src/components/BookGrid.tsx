@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import apiClient from '../services/api-client'
+
 import { Text , SimpleGrid} from '@chakra-ui/react';
-import { CanceledError } from 'axios';
 import useBooks from '../hooks/useBooks';
 import { BookCard } from './BookCard';
+import { BookCardSkeleton } from './BookCardSkeleton';
 
 
 export const BookGrid = () => {
   
-    const {books, error} = useBooks();
-  
+    const {books, error, isLoading} = useBooks();
+    const skeletons = [1, 2, 3, 4, 5, 6];
     return (
         <>
             {error && <Text>{error}</Text>}
-            <SimpleGrid column={{sm: 1, md: 2, lg:3 , xl: 5}} padding={10} spacing={10}>
+            <SimpleGrid columns={1} spacingX='40px' spacingY='20px' padding={10} spacing={10}>
+                {isLoading && skeletons.map(skeleton => <BookCardSkeleton key={skeleton}/>)}
                 {books.map(book => <BookCard key={book.id} book={book}/>)}
             </SimpleGrid>
         </>

@@ -3,32 +3,30 @@ import apiClient from '../services/api-client'
 import { CanceledError } from 'axios'
 
 
-export interface Book {
+export interface User {
     id: number;
-    title: string;
-    author: string;
-    image: string;
-    note: string;
+    name: string;
+    email: string;
 }
 
 
-const useBooks = () => {
-    const [books, setBooks] = useState<Book[]>([]);
+const useUsers = () => {
+    const [users, setBooks] = useState<User[]>([]);
     const [error, setError] = useState('');
     const [isLoading, setLoading] = useState(false);
+
     useEffect(() => {
         const controller = new AbortController();
 
-
-        setLoading(true);
-        apiClient.get<Book[]>('/books', { signal: controller.signal })
-            .then(res => {
+        setLoading(true)
+        apiClient.get<User[]>('/users', { signal: controller.signal })
+            .then((res) => {
                 setBooks(res.data);
                 setLoading(false);
             })
             .catch((err) => {
                 if (err instanceof CanceledError ) return;
-                setError(err.message);
+                setError(err.message)
                 setLoading(false);
             });
         
@@ -36,8 +34,8 @@ const useBooks = () => {
 
     }, []);
 
-    return {books, error, isLoading };
+    return {users: users, error, isLoading};
 }
 
 
-export default useBooks
+export default useUsers
