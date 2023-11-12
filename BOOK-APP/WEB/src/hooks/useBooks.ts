@@ -14,7 +14,7 @@ export interface Book {
 }
 
 
-const useBooks = () => useData<Book>('/books');
+const useBooks = (selectedUser: User | null) => useData<Book>('/books', { params: { users: selectedUser?.book}}, [selectedUser?.book,]);
 
 
 export default useBooks

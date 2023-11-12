@@ -18,9 +18,9 @@ function App() {
     <GridItem area="nav">
       <NavBar />
     </GridItem> 
-    <GridItem area="aside"><UserGrid/></GridItem>
+    <GridItem area="aside"><UserGrid onSelectUser={(user) =>  setSelectedUser(user)}/></GridItem>
     <Show above="lg">
-      <GridItem area="main"><BookGrid/></GridItem>
+      <GridItem area="main"><BookGrid selectedUser={selectedUser}/></GridItem>
     </Show>
       
   </Grid>

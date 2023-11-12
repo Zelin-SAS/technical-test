@@ -3,11 +3,15 @@ import { Text , SimpleGrid, Skeleton} from '@chakra-ui/react';
 import useBooks from '../hooks/useBooks';
 import { BookCard } from './BookCard';
 import { BookCardSkeleton } from './BookCardSkeleton';
+import { User } from '../hooks/useUsers';
 
-
-export const BookGrid = () => {
+interface Props {
+    selectedUser: User | null ;
+}
+ 
+export const BookGrid = ({selectedUser}: Props) => {
   
-    const {data, error, isLoading} = useBooks();
+    const {data, error, isLoading} = useBooks(selectedUser);
     const skeletons = [1, 2, 3, 4, 5, 6];
     return (
         <>
