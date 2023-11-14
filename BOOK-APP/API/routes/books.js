@@ -10,14 +10,13 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) =>{
-    const user = await User.findById(req.body.userId);
+    //const user = await User.findById(req.body.userId);
     const book = new Book({ 
 
         title: req.body.title,
         author: req.body.author,
-        user: {
-            _id: user._id
-        }
+        image: req.body.image,
+        note: req.body.note
 
     }) 
 
@@ -26,9 +25,14 @@ router.post('/', async (req, res) =>{
 });
 
 router.put('/:id', async (req, res) =>{
-    const book = await Book.findByIdAndUpdate(req.params.id, {title: req.body.title }, {new: true });
+    const book = await Book.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        author: req.body.author,
+        image: req.body.image,
+        note: req.body.note
+     }, {new: true });
     
-    if(!book) returnres.status(404).send('The book with the given ID is not existe');
+    //if(!book) returnres.status(404).send('The book with the given ID is not existe');
     
     res.send(book);
 });

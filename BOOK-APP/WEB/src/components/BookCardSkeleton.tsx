@@ -10,7 +10,7 @@ export const BookCardSkeleton = () => {
             <Heading><Skeleton mt='2' height='30px' width='1200px' fadeDuration={20} /></Heading>
             <Text ><Skeleton  mt='2' height='15px' width='1200px' /></Text>
             <Text ><SkeletonText mt='10' noOfLines={4} spacing='2' skeletonHeight='2' /></Text>
-            <HStack marginTop={5}>
+            <HStack justifyContent={"space-between"} marginTop={5}>
             <Button><Skeleton mt='2' width={'40px'} fadeDuration={20} /></Button>
             <Button><Skeleton width={'40px'} fadeDuration={20} /></Button>
             </HStack>

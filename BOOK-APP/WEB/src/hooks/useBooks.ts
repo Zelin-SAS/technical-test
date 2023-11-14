@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react'
-import apiClient from '../services/api-client'
-import { CanceledError } from 'axios'
 import useData from './useData';
 import { User } from './useUsers';
 
 
 export interface Book {
-    id: number;
+    _id: string;
     title: string;
     author: string;
     image: string;
@@ -14,7 +11,7 @@ export interface Book {
 }
 
 
-const useBooks = (selectedUser: User | null) => useData<Book>('/books', { params: { users: selectedUser?.book}}, [selectedUser?.book,]);
+const useBooks = () => useData<Book>('http://localhost:3000/api/books');
 
 
 export default useBooks

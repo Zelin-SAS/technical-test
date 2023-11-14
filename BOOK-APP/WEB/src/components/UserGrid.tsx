@@ -1,6 +1,8 @@
-import { Avatar, SimpleGrid, Box, Button, Flex, HStack, Text } from "@chakra-ui/react"
+import { Avatar, SimpleGrid, Box, Button, Flex, HStack, Text, Card, CardBody, CardHeader, Heading} from "@chakra-ui/react"
 import useUsers, { User } from '../hooks/useUsers';
 import { UserBadgeSkeleton } from './UserBadgeSkeleten';
+import UserNavBar from "./UserNavBar";
+import PostBook from "./PostBook";
 
 interface Props {
     onSelectUser: (user: User) => void;
@@ -15,24 +17,30 @@ export const UserGrid = ({selectedUser, onSelectUser}:Props) => {
     return (
         <>
             {error && <Text>{error}</Text>}
-            {isLoading  && skeletons.map(Skeleton => <UserBadgeSkeleton key={Skeleton}/>)}
-            <SimpleGrid  columns={1} spacingX='100px' spacingY='20px' padding={10} spacing={10}>
-                {data.map((user: User) => (
-                <Flex width={'100%'} boxShadow={'dark-lg'} as='button' ml='10' overflow={"hidden"} borderRadius={15} onClick={()=>onSelectUser(user)} fontWeight={user.book === selectedUser?.book ? 'bold' : 'normal'}>
-                <Box  width={'100%'} padding='7'>
-                  <HStack  padding={1} borderRadius={10}>
-                  <Avatar src='https://c1.klipartz.com/pngpicture/245/560/sticker-png-person-icon-avatar-icon-design-user-profile-face-silhouette-head-line-art.png'/>
-                 
-                  <HStack width={'100%'} justifyContent={"space-between"}  padding='10px' borderRadius={10}>
-                    <Text fontWeight='bold'>{user.name}</Text>
-                    <Button>ADD-BOOK</Button>
-                  </HStack>
-                  
-                  </HStack>
-                  </Box>
-            </Flex>
-            ))}
-            </SimpleGrid>
+            {isLoading  && skeletons.map(Skeleton => <UserBadgeSkeleton key={Skeleton}/>)}  
+            
+            
+            <Card mt={'10px'} padding={'50px'} ml={'40px'}>
+                    <CardBody>
+                        <UserNavBar/>
+                        <Card padding={'15px'} mt={'10px'} boxShadow='inner'>
+                        <Heading ml={'5'} mb={'20px'} mt={'10px'}  textShadow='1px 1px #1A365D'>USERS</Heading>
+                            {data.map((user: User) => (
+                    <Card borderRadius={'30px'} mb='20px' padding={'10px'} boxShadow={'dark-lg'}> 
+                                <Box mb={'20px'} height={'70px'} as="button" onClick={()=>console.log(user._id)} fontWeight={user.book === selectedUser?.book ? 'bold' : 'normal'}>
+                                    <HStack  padding={'20px'} borderRadius={30}>
+                                        <Avatar src='https://c1.klipartz.com/pngpicture/245/560/sticker-png-person-icon-avatar-icon-design-user-profile-face-silhouette-head-line-art.png'/>
+                                        <HStack width={'100%'} justifyContent={"space-between"}  padding='1px'>
+                                            <Text fontWeight='bold'>{user.name}</Text>
+                                            <PostBook/>
+                                        </HStack>
+                                    </HStack>
+                                </Box>
+                    </Card>
+                ))}
+                       </Card>
+                    </CardBody>
+            </Card>
         </>
     );
 };

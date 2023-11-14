@@ -3,14 +3,14 @@ import useData from './useData';
 
 
 export interface User {
-    id: number;
+    _id: string;
     name: string;
     email: string;
     book: string;
 }
 
 
-const useUsers = () => useData<User>('/users');
+const useUsers = () => useData<User>('http://localhost:3000/api/users');
 
 
 export default useUsers
