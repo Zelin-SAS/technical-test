@@ -32,6 +32,7 @@ const PostBook = () => {
       catch (exception){
         alert('there was an error')
       }
+      window.location.reload();
     };
 
     return (

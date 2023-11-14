@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import { Card, Image, CardBody, Heading, Text, CardFooter , HStack,  Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Stack, Textarea, useDisclosure} from '@chakra-ui/react';
 import { Book } from '../hooks/useBooks'
 import useData from '../hooks/useData';
@@ -13,6 +13,7 @@ interface Props {
 export const BookCard = ({book}: Props) => {
     const { data , setData} = useData<Book>('http://localhost:3000/api/books');
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [reducerValue, forceUpdate] = useReducer(x => x + 1, 0);
 
     const setNewValue = (id_: string, newValue: string) =>
     setData(prevState => ({...prevState, [id_]: newValue}))
@@ -25,6 +26,7 @@ export const BookCard = ({book}: Props) => {
             .catch(error => {
                 console.error(error);
             }); 
+        window.location.reload();
     }
 
 
@@ -37,6 +39,7 @@ export const BookCard = ({book}: Props) => {
         catch (exception){
         alert('there was an error')
         }
+    window.location.reload();
     }
 
   return (

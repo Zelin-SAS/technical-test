@@ -46,12 +46,18 @@ router.delete('/:id', async (req, res) =>{
 });
 
 router.get('/:id', async (req, res) =>{
-    const book = await Book.findById(req.params.id);
-    
-    if(!book) returnres.status(404).send('The book with the given ID is not existe');
+    const user = await User.findById(req.user._id);
+    const book = await Book.find({user: user});
 
     res.send(book);
 });
 
+/*
+    router.get('/me',auth, async (req, res) =>{ 
+        const user = await User.findById(req.user._id);
+        const reservation = await Reservation.find({user: user});
+        res.json(reservation);
+});
+*/
 
 module.exports = router;
