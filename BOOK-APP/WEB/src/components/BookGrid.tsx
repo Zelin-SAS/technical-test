@@ -4,15 +4,17 @@ import { BookCard } from './BookCard';
 import { BookCardSkeleton } from './BookCardSkeleton';
 import { User } from '../hooks/useUsers';
 import BookNavbar from './BookNavbar';
+import React, { useState } from 'react';
 
 interface Props {
     selectedUser: User | null ;
 }
 
 export const BookGrid = ({selectedUser}: Props) => {
-  
     const {data, error, isLoading} = useBooks();
     const skeletons = [1, 2, 3, 4, 5, 6];
+
+
 
     return (
 
@@ -27,7 +29,7 @@ export const BookGrid = ({selectedUser}: Props) => {
                           </CardHeader> 
                           <CardBody>
                               {error && <Text>{error}</Text>}
-                                <SimpleGrid columns={1} spacingX='20px' spacingY='20px'>
+                                <SimpleGrid columns={2} spacingX='20px' spacingY='20px'>
                                     {isLoading && skeletons.map(skeleton => <BookCardSkeleton/>)}
                                     {data.map(book => <BookCard key={book._id} book={book}/>)}
                                 </SimpleGrid>
@@ -36,4 +38,5 @@ export const BookGrid = ({selectedUser}: Props) => {
                 </CardBody>
               </Card>
     )
+
 }

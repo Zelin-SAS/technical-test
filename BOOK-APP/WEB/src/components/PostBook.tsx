@@ -1,7 +1,12 @@
 import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Stack, Textarea, useDisclosure } from "@chakra-ui/react"
 import React, { useState } from "react"
 import axios from "axios";
+import { User } from "../hooks/useUsers";
 
+interface Props {
+  user: User
+
+}
 
 type  Book = {
   title: string,
@@ -10,7 +15,7 @@ type  Book = {
   image: string
 };
 
-const PostBook = () => {
+const PostBook = ({user}: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     
     const [book ,setBook] = useState<Book>({
@@ -24,10 +29,11 @@ const PostBook = () => {
     const setNewValue = (id_: string, newValue: string) =>
     setBook(prevState => ({...prevState, [id_]: newValue}))
 
-    const handle = async() => {
+    const handle = (user: User) => {
+    console.log("mama",user._id)
       try {
-         const response = await axios.post('http://localhost:3000/api/books', book)
-         console.log(response.data)
+         const response = axios.post(`http://localhost:3000/api/books/${user._id}`, book)
+         console.log(response)
       }
       catch (exception){
         alert('there was an error')
@@ -78,7 +84,7 @@ const PostBook = () => {
   
               <DrawerFooter borderTopWidth='1px'>
                 <Button w={'100px'} boxShadow='md' rounded='xl' variant='ghost' onClick={onClose}>Cancel</Button>
-                <Button w={'100px'} boxShadow='md' rounded='xl' variant='ghost' onClick={() => {handle()}} >ADD</Button>
+                <Button w={'100px'} boxShadow='md' rounded='xl' variant='ghost' onClick={() => {handle(user)}} >ADD</Button>
               </DrawerFooter>
             </DrawerContent>
         </Drawer>

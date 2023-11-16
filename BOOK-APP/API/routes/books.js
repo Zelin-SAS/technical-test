@@ -9,14 +9,21 @@ router.get('/', async (req, res) => {
     res.send(books);
 });
 
-router.post('/', async (req, res) =>{
-    //const user = await User.findById(req.body.userId);
-    const book = new Book({ 
+router.post('/:id', async (req, res) =>{
+    const user = await User.findById(req.params.id);
+
+    let book = new Book({ 
 
         title: req.body.title,
         author: req.body.author,
         image: req.body.image,
-        note: req.body.note
+        note: req.body.note,
+       
+        user:{
+            _id: user._id,
+            name: user.name
+        }
+    
 
     }) 
 
@@ -46,18 +53,12 @@ router.delete('/:id', async (req, res) =>{
 });
 
 router.get('/:id', async (req, res) =>{
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.params.id);
     const book = await Book.find({user: user});
 
     res.send(book);
 });
 
-/*
-    router.get('/me',auth, async (req, res) =>{ 
-        const user = await User.findById(req.user._id);
-        const reservation = await Reservation.find({user: user});
-        res.json(reservation);
-});
-*/
+
 
 module.exports = router;

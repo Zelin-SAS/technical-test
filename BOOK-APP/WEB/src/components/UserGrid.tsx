@@ -32,7 +32,7 @@ export const UserGrid = ({selectedUser, onSelectUser}:Props) => {
                                         <Avatar src='https://c1.klipartz.com/pngpicture/245/560/sticker-png-person-icon-avatar-icon-design-user-profile-face-silhouette-head-line-art.png'/>
                                         <HStack width={'100%'} justifyContent={"space-between"}  padding='1px'>
                                             <Text fontWeight='bold'>{user.name}</Text>
-                                            <PostBook/>
+                                            <PostBook user={user}/>
                                         </HStack>
                                     </HStack>
                                 </Box>

@@ -3,10 +3,9 @@ import useData from './useData';
 
 
 export interface User {
+    book: any;
     _id: string;
     name: string;
-    email: string;
-    book: string;
 }
 
 
