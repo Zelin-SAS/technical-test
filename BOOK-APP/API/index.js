@@ -7,7 +7,10 @@ const app = express();
 
 
 
-mongoose.connect('mongodb://localhost/playground',{ useNewUrlParser: true , useUnifiedTopology: true })
+
+
+
+mongoose.connect('mongodb://localhost/playground',{ useNewUrlParser: true , useUnifiedTopology: true ,useFindAndModify: false })
     .then(() => console.log('Connected to MongoDB...'))
     .catch(err => console.error('Could not connect to MongoDB...', err));
 
