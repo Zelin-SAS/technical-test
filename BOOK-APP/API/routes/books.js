@@ -6,6 +6,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     const books = await Book.find();
+    
+    //const user = await User.findById(req.params.id)
+    //const book = await Book.find({user: user});
+    
     res.send(books);
 });
 
