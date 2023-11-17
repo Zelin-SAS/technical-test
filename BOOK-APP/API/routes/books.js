@@ -32,8 +32,7 @@ router.post('/:id', async (req, res) =>{
     }) 
 
     await book.save();
-    res.send(book);
-});
+    res.send(book);});
 
 router.put('/:id', async (req, res) =>{
     const book = await Book.findByIdAndUpdate(req.params.id, {

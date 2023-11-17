@@ -5,14 +5,20 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+//4Jg99wAvbPaN8a70
 
+const dbUrl = "mongodb+srv://taibamjoud5:4Jg99wAvbPaN8a70@cluster0.xktt75d.mongodb.net/playground?retryWrites=true&w=majority"
 
+const connectionParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}
 
-
-
-mongoose.connect('mongodb://localhost/playground',{ useNewUrlParser: true , useUnifiedTopology: true ,useFindAndModify: false })
-    .then(() => console.log('Connected to MongoDB...'))
-    .catch(err => console.error('Could not connect to MongoDB...', err));
+mongoose.connect(dbUrl, connectionParams).then(()=>{
+    console.info("Connected to the DB")
+}).catch((e)=>{
+    console.log("Error:",e)
+});
 
 
 app.use(cors())
