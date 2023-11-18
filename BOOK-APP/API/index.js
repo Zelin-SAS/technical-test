@@ -7,19 +7,9 @@ const app = express();
 
 //4Jg99wAvbPaN8a70
 
-const dbUrl = "mongodb+srv://taibamjoud5:4Jg99wAvbPaN8a70@cluster0.xktt75d.mongodb.net/playground?retryWrites=true&w=majority"
-
-const connectionParams = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}
-
-mongoose.connect(dbUrl, connectionParams).then(()=>{
-    console.info("Connected to the DB")
-}).catch((e)=>{
-    console.log("Error:",e)
-});
-
+mongoose.connect('mongodb+srv://taibamjoud5:4Jg99wAvbPaN8a70@cluster0.xktt75d.mongodb.net/playground?retryWrites=true&w=majority',{ useNewUrlParser: true , useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB...'))
+    .catch(err => console.error('Could not connect to MongoDB...', err));
 
 app.use(cors())
 app.use(express.json());

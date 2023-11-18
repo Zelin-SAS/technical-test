@@ -8,7 +8,7 @@ const NavBar = () => {
     <Card
       borderTopRadius={"30px"}
       boxShadow="inner"
-      mt={"40px"}
+      mt={"10px"}
       ml={"10px"}
       mr={"10px"}
     >

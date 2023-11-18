@@ -17,7 +17,7 @@ export interface Book {
 }
 
 
-const useBooks = () => useData<Book>('http://localhost:3000/api/books');
+const useBooks = (selectedUser: User | null) => useData<Book>(`http://localhost:3000/api/books/${selectedUser?._id}`,[selectedUser?._id]);
 
 
 

@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig, CanceledError } from 'axios'
 
 
 
-const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?: any[]) => {
+const useData = <T>(endpoint: string, deps?: any[]) => {
     const [data, setData] = useState<T[]>([]);
     const [error, setError] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?:
 
 
         setLoading(true);
-        axios.get<T[]>(endpoint, { signal: controller.signal, ...requestConfig})
+        axios.get<T[]>(endpoint, { signal: controller.signal})
             .then(res => {
                 setData(res.data);
                 setLoading(false);
@@ -29,7 +29,7 @@ const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?:
 
     }, deps ? [...deps] : []);
 
-    return {data, error, isLoading, setData};
+    return {data, error, isLoading};
 }
 
 

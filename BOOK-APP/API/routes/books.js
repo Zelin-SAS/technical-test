@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-    const books = await Book.find();
+router.get('/:id', async (req, res) => {
+    //const books = await Book.find();
     
-    //const user = await User.findById(req.params.id)
-    //const book = await Book.find({user: user});
+    const user = await User.findById(req.params.id)
+    const books = await Book.find({user: user});
     
     res.send(books);
 });
