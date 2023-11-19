@@ -27,7 +27,7 @@ export const BookGrid = (props: any) => {
       </Text>
     );
   }
-  const { data, error, isLoading } = useBooks(props.selectedUser);
+  const { data, setData, error, isLoading } = useBooks(props.selectedUser);
 
   const skeletons = [1, 2, 3, 4, 5, 6];
 
@@ -63,7 +63,7 @@ export const BookGrid = (props: any) => {
         >
           {isLoading && skeletons.map((skeleton) => <BookCardSkeleton />)}
           {data.map((book) => (
-            <BookCard key={book._id} book={book} />
+            <BookCard books={data} setBooks={setData} book={book} />
           ))}
         </SimpleGrid>
       </CardBody>

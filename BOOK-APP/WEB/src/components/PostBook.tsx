@@ -47,7 +47,6 @@ const PostBook = ({ user }: Props) => {
     setBook((prevState) => ({ ...prevState, [id_]: newValue }));
 
   const handle = (user: User) => {
-    console.log("mama", user._id);
     try {
       const response = axios.post(
         `http://localhost:3000/api/books/${user._id}`,

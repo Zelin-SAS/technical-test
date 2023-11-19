@@ -13,6 +13,7 @@ router.get('/:id', async (req, res) => {
     res.send(books);
 });
 
+
 router.post('/:id', async (req, res) =>{
     const user = await User.findById(req.params.id);
 
@@ -41,9 +42,7 @@ router.put('/:id', async (req, res) =>{
         image: req.body.image,
         note: req.body.note
      }, {new: true });
-    
-    //if(!book) returnres.status(404).send('The book with the given ID is not existe');
-    
+        
     res.send(book);
 });
 
@@ -55,12 +54,6 @@ router.delete('/:id', async (req, res) =>{
     res.send(book);
 });
 
-router.get('/:id', async (req, res) =>{
-    const user = await User.findById(req.params.id);
-    const book = await Book.find({user: user});
-
-    res.send(book);
-});
 
 
 

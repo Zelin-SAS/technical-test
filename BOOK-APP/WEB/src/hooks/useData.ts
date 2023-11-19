@@ -29,7 +29,7 @@ const useData = <T>(endpoint: string, deps?: any[]) => {
 
     }, deps ? [...deps] : []);
 
-    return {data, error, isLoading};
+    return {data, setData, error, isLoading};
 }
 
 

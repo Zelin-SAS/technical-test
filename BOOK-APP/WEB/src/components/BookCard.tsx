@@ -33,16 +33,44 @@ import { User } from "../hooks/useUsers";
 
 interface Props {
   book: Book;
+  books: any;
+  setBooks: any;
 }
 
-export const BookCard = ({ book }: Props) => {
-  const { data, setData } = useData<Book>("http://localhost:3000/api/books");
+export const BookCard = ({ books, setBooks, book }: Props) => {
+  const originalBooks = [...books];
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const setNewValue = (id_: string, newValue: string) =>
-    setData((prevState) => ({ ...prevState, [id_]: newValue }));
+  const setNewValue = (id_: string, newValue: string) => {
+    setBooks((prevState: any[]) => {
+      const newState = prevState.map((obj) => {
+        if (obj._id == book._id) {
+          return { ...obj, [id_]: newValue };
+        }
+        return obj;
+      });
+      return newState;
+    });
+  };
+
+  const handle = (book: Book) => {
+    setBooks(books.map((u: Book) => (u._id === book._id ? book : u)));
+    try {
+      const response = axios.put(
+        `http://localhost:3000/api/books/${book._id}`,
+        book
+      );
+      onClose();
+    } catch (exception) {
+      alert("there was an error");
+      setBooks(originalBooks);
+    }
+  };
 
   const deletBook = (book: Book) => {
+    const originalBooks = [...books];
+    setBooks(books.filter((u: Book) => u._id !== book._id));
     axios
       .delete(`http://localhost:3000/api/books/${book._id}`)
       .then((response) => {
@@ -50,22 +78,8 @@ export const BookCard = ({ book }: Props) => {
       })
       .catch((error) => {
         console.error(error);
+        setBooks(originalBooks);
       });
-    window.location.reload();
-  };
-
-  const handle = (book: Book) => {
-    console.log(book._id);
-
-    try {
-      const response = axios.put(
-        `http://localhost:3000/api/books/${book._id}`,
-        data
-      );
-    } catch (exception) {
-      alert("there was an error");
-    }
-    window.location.reload();
   };
 
   return (
@@ -88,7 +102,7 @@ export const BookCard = ({ book }: Props) => {
             <CardBody>
               <Heading fontSize={"2xl"}>{book.title}</Heading>
               <Heading py={1} fontSize={"sm"}>
-                by : <u>{book.author}</u>
+                by: <u>{book.author}</u>
               </Heading>
               <CardBody>
                 <Text py={1}>Overview : {book.note}</Text>
@@ -116,10 +130,11 @@ export const BookCard = ({ book }: Props) => {
                           <Box>
                             <FormLabel htmlFor="BookName">Book Name</FormLabel>
                             <Input
+                              type="text"
+                              defaultValue={book.title}
                               onChange={(evt) => {
                                 setNewValue("title", evt.target.value);
                               }}
-                              placeholder="Please enter the Book Name"
                             />
                           </Box>
                           <Box>
@@ -127,10 +142,10 @@ export const BookCard = ({ book }: Props) => {
                               Author Name
                             </FormLabel>
                             <Input
+                              defaultValue={book.author}
                               onChange={(evt) => {
                                 setNewValue("author", evt.target.value);
                               }}
-                              placeholder="Please enter the Author Name"
                             />
                           </Box>
                           <Box>
@@ -139,20 +154,20 @@ export const BookCard = ({ book }: Props) => {
                               <InputLeftAddon>http://</InputLeftAddon>
                               <Input
                                 type="url"
+                                defaultValue={book.image}
                                 onChange={(evt) => {
                                   setNewValue("image", evt.target.value);
                                 }}
-                                placeholder="Please enter Image of the Book"
                               />
                             </InputGroup>
                           </Box>
                           <Box>
                             <FormLabel htmlFor="Note">Note</FormLabel>
                             <Textarea
+                              defaultValue={book.note}
                               onChange={(evt) => {
                                 setNewValue("note", evt.target.value);
                               }}
-                              id="note"
                             />
                           </Box>
                         </Stack>
