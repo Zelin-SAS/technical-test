@@ -25,6 +25,9 @@ import {
   Stack,
   Textarea,
   useDisclosure,
+  ButtonGroup,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
 import { Book } from "../hooks/useBooks";
 import useData from "../hooks/useData";
@@ -84,34 +87,33 @@ export const BookCard = ({ books, setBooks, book }: Props) => {
 
   return (
     <>
-      <Card
+      <Box
+        borderRadius={"30px"}
         boxShadow={"dark-lg"}
-        direction={{ base: "column", sm: "row" }}
-        variant="outline"
-        borderRadius={35}
+        p={4}
+        display={{ md: "flex" }}
       >
-        <Image
-          objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
-          src={book.image}
-          padding={"10px"}
-          borderRadius={30}
-        ></Image>
-        <HStack overflow={"auto"}>
+        <Box flexShrink={0}>
+          <Image objectFit="cover" width={{ md: 40 }} src={book.image}></Image>
+        </Box>
+        <Box>
           <Stack>
             <CardBody>
-              <Heading fontSize={"2xl"}>{book.title}</Heading>
-              <Heading py={1} fontSize={"sm"}>
+              <Heading fontSize={"15"}>{book.title}</Heading>
+              <Text py={1} fontSize={"15px"}>
                 by: <u>{book.author}</u>
-              </Heading>
+              </Text>
               <CardBody>
-                <Text py={1}>Overview : {book.note}</Text>
+                <Text py={1} fontSize={"15px"}>
+                  Overview : {book.note}
+                </Text>
               </CardBody>
-              <HStack justifyContent={"space-between"}>
+              <Flex>
                 <Button
                   boxShadow="md"
                   rounded="xl"
                   variant="ghost"
+                  size="sm"
                   onClick={onOpen}
                 >
                   UPDATE
@@ -196,20 +198,21 @@ export const BookCard = ({ books, setBooks, book }: Props) => {
                     </DrawerContent>
                   </Drawer>
                 </>
-
+                <Spacer />
                 <Button
                   boxShadow="md"
                   rounded="xl"
                   variant="ghost"
+                  size="sm"
                   onClick={() => deletBook(book)}
                 >
                   DELETE
                 </Button>
-              </HStack>
+              </Flex>
             </CardBody>
           </Stack>
-        </HStack>
-      </Card>
+        </Box>
+      </Box>
     </>
   );
 };

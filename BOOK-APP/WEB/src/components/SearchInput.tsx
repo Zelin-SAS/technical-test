@@ -17,10 +17,9 @@ export const SearchInput = () => {
       }}
     >
       <InputGroup>
-        <InputLeftElement ml={"5px"} mt={"15px"} children={<BsSearch />} />
+        <InputLeftElement children={<BsSearch />} />
         <Input
           ref={ref}
-          height={"70px"}
           borderRadius={20}
           placeholder="Search Book..."
           variant="filled"

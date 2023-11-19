@@ -27,53 +27,48 @@ export const UserGrid = (props: { setSelectedUser: (arg0: User) => any }) => {
   return (
     <>
       {error && <Text>{error}</Text>}
-
-      <Card w={"455px"} ml={"11px"}>
-        <CardBody>
-          <UserNavBar />
-          <Card padding={"10px"} mt={"10px"} boxShadow="inner">
-            <Heading
-              ml={"5"}
+      <Card padding={"10px"}>
+        <UserNavBar />
+        <Card padding={"20px"} mt={"10px"}>
+          <Heading
+            size={"ms"}
+            mb={"10px"}
+            mt={"10px"}
+            textShadow="1px 1px #1A365D"
+          >
+            USERS
+          </Heading>
+          {isLoading}
+          {data.map((user: User) => (
+            <Box
+              boxShadow={"dark-lg"}
+              width={"100%"}
               mb={"20px"}
-              mt={"10px"}
-              textShadow="1px 1px #1A365D"
+              as="button"
+              borderRadius={"20px"}
+              padding={"10px"}
+              onClick={() => {
+                props.setSelectedUser(user);
+              }}
             >
-              USERS
-            </Heading>
-            {isLoading &&
-              skeletons.map((Skeleton) => <UserBadgeSkeleton key={Skeleton} />)}
-            {data.map((user: User) => (
-              <Card
-                borderRadius={"30px"}
-                mb="20px"
-                padding={"5px"}
-                boxShadow={"dark-lg"}
-              >
-                <Box
-                  mb={"20px"}
-                  height={"70px"}
-                  as="button"
-                  onClick={() => {
-                    props.setSelectedUser(user);
-                  }}
-                  fontWeight={"bold"}
+              <HStack>
+                <Avatar src="https://c1.klipartz.com/pngpicture/245/560/sticker-png-person-icon-avatar-icon-design-user-profile-face-silhouette-head-line-art.png" />
+                <HStack
+                  width={"100%"}
+                  justifyContent={"space-between"}
+                  padding="1px"
                 >
-                  <HStack padding={"20px"} borderRadius={30}>
-                    <Avatar src="https://c1.klipartz.com/pngpicture/245/560/sticker-png-person-icon-avatar-icon-design-user-profile-face-silhouette-head-line-art.png" />
-                    <HStack
-                      width={"100%"}
-                      justifyContent={"space-between"}
-                      padding="1px"
-                    >
-                      <Text fontWeight="bold">{user.name}</Text>
-                      <PostBook user={user} />
-                    </HStack>
-                  </HStack>
-                </Box>
-              </Card>
-            ))}
-          </Card>
-        </CardBody>
+                  <Text fontSize={"10px"} fontWeight="bold">
+                    {user.name}
+                  </Text>
+                  <div>
+                    <PostBook user={user} />
+                  </div>
+                </HStack>
+              </HStack>
+            </Box>
+          ))}
+        </Card>
       </Card>
     </>
   );

@@ -36,36 +36,30 @@ export const BookGrid = (props: any) => {
       This user doesn't have any book !
     </Text>
   ) : (
-    <Card
-      w={"100%"}
-      direction={{ base: "column", sm: "row" }}
-      overflow="hidden"
-      variant="outline"
-    >
-      <CardBody height={"100%"} w={"100%"}>
+    <Card w={"100%"} height={"100%"}>
+      <CardBody w={"100%"}>
         <BookNavbar />
-        <Heading
-          ml={"30px"}
-          mb={"20px"}
-          mt={"20px"}
-          size="xl"
-          textShadow="1px 1px #1A365D"
-        >
-          BOOKS
-        </Heading>
-        {error && <Text>{error}</Text>}
-        <SimpleGrid
-          columns={{ sm: 1, md: 1, lg: 1, xl: 2 }}
-          height="100%"
-          width="100%"
-          spacingX="20px"
-          spacingY="20px"
-        >
-          {isLoading && skeletons.map((skeleton) => <BookCardSkeleton />)}
-          {data.map((book) => (
-            <BookCard books={data} setBooks={setData} book={book} />
-          ))}
-        </SimpleGrid>
+        <Card padding={"15px"} mt={"10px"}>
+          <Heading
+            mb={"20px"}
+            mt={"10px"}
+            size="lg"
+            textShadow="1px 1px #1A365D"
+          >
+            BOOKS
+          </Heading>
+          {error && <Text>{error}</Text>}
+          <SimpleGrid
+            columns={{ sm: 1, xl: 2 }}
+            spacingX="20px"
+            spacingY="20px"
+          >
+            {isLoading && skeletons.map((skeleton) => <BookCardSkeleton />)}
+            {data.map((book) => (
+              <BookCard books={data} setBooks={setData} book={book} />
+            ))}
+          </SimpleGrid>
+        </Card>
       </CardBody>
     </Card>
   );

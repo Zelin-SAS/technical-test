@@ -11,8 +11,9 @@ export const ColorModeSwitch = () => {
         colorScheme="green"
         isChecked={colorMode === "dark"}
         onChange={toggleColorMode}
+        size={"sm"}
       />
-      <Text fontSize={"25px"} mr={"31px"}>
+      <Text mt={"4px"} mr={"10px"}>
         Dark Mode
       </Text>
     </HStack>

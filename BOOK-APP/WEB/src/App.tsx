@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardBody,
   CardHeader,
@@ -20,25 +21,22 @@ function App() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   return (
-    <Grid
-      templateAreas={`"header header"
-                  "nav main"`}
-      gridTemplateRows={"70% 1fr 30px"}
-      gridTemplateColumns={"23% 1fr"}
-      h="200px"
-      gap="1"
-      color="blackAlpha.700"
-      fontWeight="bold"
-    >
-      <GridItem pl="2" area={"header"}>
+    <Grid templateAreas={`"header header" " nav main"`}>
+      <GridItem mt={"20px"} p={2} area={"header"}>
         <NavBar />
       </GridItem>
-      <GridItem pl="2" area={"nav"}>
-        <UserGrid setSelectedUser={setSelectedUser} />
-      </GridItem>
-      <GridItem pl="2" area={"main"}>
-        <BookGrid selectedUser={selectedUser} />
-      </GridItem>
+      <Box display={{ lg: "flex" }}>
+        <Box>
+          <GridItem p={2} area={"nav"}>
+            <UserGrid setSelectedUser={setSelectedUser} />
+          </GridItem>
+        </Box>
+        <Box>
+          <GridItem p={2} area={"main"}>
+            <BookGrid selectedUser={selectedUser} />
+          </GridItem>
+        </Box>
+      </Box>
     </Grid>
   );
 }

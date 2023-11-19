@@ -6,7 +6,12 @@ import { SearchInputUsers } from "./SearchInputUsers";
 
 const UserNavBar = () => {
   return (
-    <HStack borderTopRadius={"30px"} boxShadow={"dark-lg"} padding="25px">
+    <HStack
+      mt={"10px"}
+      borderTopRadius={"30px"}
+      boxShadow={"dark-lg"}
+      padding="10px"
+    >
       <SearchInputUsers />
     </HStack>
   );

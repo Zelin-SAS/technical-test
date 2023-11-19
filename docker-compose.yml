@@ -1,0 +1,18 @@
+version: "3"
+services:
+  react-app:
+    image: react-app
+    stdin_open: true
+    ports: 
+      - "5173:5173"
+    networks:
+      - book-app
+  book-api:
+    image: book-api
+    ports:
+      - "3000:3000"
+    networks:
+      - book-app
+networks:
+  book-app:
+    driver: bridge

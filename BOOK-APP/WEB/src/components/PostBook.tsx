@@ -61,7 +61,14 @@ const PostBook = ({ user }: Props) => {
 
   return (
     <>
-      <Button boxShadow="md" rounded="xl" variant="ghost" onClick={onOpen}>
+      <Button
+        fontSize={"10px"}
+        boxShadow="md"
+        rounded="xl"
+        variant="ghost"
+        onClick={onOpen}
+        size="sm"
+      >
         Add-BOOK
       </Button>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>

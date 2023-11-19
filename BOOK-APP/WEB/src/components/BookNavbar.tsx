@@ -7,7 +7,7 @@ interface Props {
 
 const BookNavbar = () => {
   return (
-    <HStack borderTopRadius={"30px"} boxShadow={"dark-lg"} padding="35px">
+    <HStack borderTopRadius={"30px"} boxShadow={"dark-lg"} padding="10px">
       <SearchInput />
     </HStack>
   );
