@@ -16,3 +16,4 @@ services:
 networks:
   book-app:
     driver: bridge
+    
