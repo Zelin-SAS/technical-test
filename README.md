@@ -2,9 +2,9 @@
 
 After pulling the Bransh Technical-test, go to the folder BOOK-APP and run the following commands :
 
-1-> docker build -t "react-app" ./WEB/
-2-> docker build -t "book-api" ./API/
-3-> docker-compose up
+- 1 docker build -t "react-app" ./WEB/
+- 2 docker build -t "book-api" ./API/
+- 3 docker-compose up
 
 The web-page will be in this url -> http://localhost:5173/
 
