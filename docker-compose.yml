@@ -1,0 +1,54 @@
+services:
+
+  db:
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
+    container_name: book_database
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+  
+  backend:
+    container_name: book_backend
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    user: zelin
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+    working_dir: /app
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - PORT=3000
+    env_file:
+      - .env.local
+
+  frontend:
+    container_name: book_frontend
+    build: 
+      context: ./web
+      dockerfile: Dockerfile
+    user: zelin
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./web:/app
+    working_dir: /app
+    command: tail -f /dev/null
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+      NODE_ENV: development
+      PORT: 3001
+
+volumes:
+  mysql_data:
+
