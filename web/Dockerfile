@@ -19,8 +19,8 @@ USER zelin
 # Install app dependencies
 RUN npm install
 
-# Expose the port the app runs in
-EXPOSE 3001
+# expose the port FRONTEND_PORT from env variable
+EXPOSE $FRONTEND_PORT
 
 # Run the app
 CMD [ "npm", "start" ]

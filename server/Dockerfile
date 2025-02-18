@@ -20,8 +20,8 @@ USER zelin
 # Install app dependencies
 RUN npm install
 
-# Expose the port the app runs in
-EXPOSE 3000
+# expose the port BACKEND_PORT from env variable
+EXPOSE $BACKEND_PORT
 
 # Run the app
 CMD [ "npm", "start" ]
