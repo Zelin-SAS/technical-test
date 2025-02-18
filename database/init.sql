@@ -1,11 +1,11 @@
 -- Create a database
-CREATE DATABASE book_database;
+CREATE DATABASE IF NOT EXISTS book_database;
 
 -- Switch to the new database
 USE book_database;
 
 -- Create a table for books
-CREATE TABLE books (
+CREATE TABLE IF NOT EXISTS books (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,
