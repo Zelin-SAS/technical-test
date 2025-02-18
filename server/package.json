@@ -7,8 +7,7 @@
         "dev": "nodemon src/index.ts",
         "build": "tsc",
         "serve": "node dist/index.js",
-        "format": "prettier --write \"src/**/*.ts\"",
-        "prepare": "husky install"
+        "format": "prettier --write \"src/**/*.ts\""
     },
     "keywords": [],
     "author": "",
@@ -25,8 +24,5 @@
         "prettier": "^3.5.1",
         "ts-node": "^10.9.2",
         "typescript": "^5.7.3"
-    },
-    "lint-staged": {
-        "src/**/*.ts": "prettier --write"
     }
 }
