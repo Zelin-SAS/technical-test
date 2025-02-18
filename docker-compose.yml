@@ -4,7 +4,7 @@ services:
     image: mysql
     container_name: book_database
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database:/docker-entrypoint-initdb.d/
       - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
