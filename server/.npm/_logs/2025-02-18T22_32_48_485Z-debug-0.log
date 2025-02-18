@@ -1,0 +1,51 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.5.2
+2 info using node@v20.13.1
+3 timing npm:load:whichnode Completed in 2ms
+4 timing config:load:defaults Completed in 2ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 1ms
+6 timing config:load:builtin Completed in 1ms
+7 timing config:load:cli Completed in 1ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:project Completed in 2ms
+10 timing config:load:file:/app/.npmrc Completed in 2ms
+11 timing config:load:user Completed in 2ms
+12 timing config:load:file:/usr/local/etc/npmrc Completed in 0ms
+13 timing config:load:global Completed in 1ms
+14 timing config:load:setEnvs Completed in 1ms
+15 timing config:load Completed in 10ms
+16 timing npm:load:configload Completed in 10ms
+17 timing config:load:flatten Completed in 2ms
+18 timing npm:load:mkdirpcache Completed in 3ms
+19 timing npm:load:mkdirplogs Completed in 4ms
+20 verbose title npm start
+21 verbose argv "start"
+22 timing npm:load:setTitle Completed in 1ms
+23 timing npm:load:display Completed in 1ms
+24 verbose logfile logs-max:10 dir:/app/.npm/_logs/2025-02-18T22_32_48_485Z-
+25 verbose logfile /app/.npm/_logs/2025-02-18T22_32_48_485Z-debug-0.log
+26 timing npm:load:logFile Completed in 12ms
+27 timing npm:load:timers Completed in 0ms
+28 timing npm:load:configScope Completed in 0ms
+29 timing npm:load Completed in 59ms
+30 silly logfile done cleaning log files
+31 timing command:run-script Completed in 55618ms
+32 timing command:start Completed in 55629ms
+33 verbose stack Error: command failed
+33 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/@npmcli/promise-spawn/lib/index.js:53:27)
+33 verbose stack     at ChildProcess.emit (node:events:519:28)
+33 verbose stack     at maybeClose (node:internal/child_process:1105:16)
+33 verbose stack     at ChildProcess._handle.onexit (node:internal/child_process:305:5)
+34 verbose pkgid server@1.0.0
+35 verbose cwd /app
+36 verbose Linux 5.15.167.4-microsoft-standard-WSL2
+37 verbose node v20.13.1
+38 verbose npm  v10.5.2
+39 error path /app
+40 error command failed
+41 error signal SIGTERM
+42 error command sh -c ts-node src/index.ts
+43 verbose exit 1
+44 timing npm Completed in 55722ms
+45 verbose code 1
+46 error A complete log of this run can be found in: /app/.npm/_logs/2025-02-18T22_32_48_485Z-debug-0.log
