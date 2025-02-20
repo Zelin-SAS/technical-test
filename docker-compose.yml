@@ -39,9 +39,15 @@ services:
     user: zelin
     ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
-    volumes:
-      - ./web:/app
     working_dir: /app
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./web
+          target: /app
+          ignore:
+            - node_modules
+    restart: on-failure
     env_file:
       - .env
 

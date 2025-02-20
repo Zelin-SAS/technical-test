@@ -1,14 +1,14 @@
 FROM node:20.13.1
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Bundle app source
 COPY . .
 
 # Create user with UID 1000:1000 to avoid permission issues
-#RUN useradd -u 1000 -U -d /usr/src/app zelin
-RUN useradd -U -d /usr/src/app zelin
+#RUN useradd -u 1000 -U -d /app zelin
+RUN useradd -U -d /app zelin
 
 
 # Change ownership of app folder to new user
