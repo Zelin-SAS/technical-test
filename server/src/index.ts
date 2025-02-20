@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import Database from "./services/database";
 import AppRouter from "./services/router";
 import Book from "./entity/book";
+import path from "path";
 
 dotenv.config();
 
@@ -44,6 +45,16 @@ const routes = [
 		method: "put",
 		path: "/books/loadSeeds",
 		handler: (req: any, res: any) => Book.loadSeeds(req, res),
+	},
+	{
+		method: "delete",
+		path: "/book/:id",
+		handler: (req: any, res: any) => Book.deleteBook(req, res),
+	},
+	{
+		method: "patch",
+		path: "/book/:id",
+		handler: (req: any, res: any) => Book.updateBook(req, res),
 	}
 ];
 

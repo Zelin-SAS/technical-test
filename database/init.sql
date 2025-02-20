@@ -1,3 +1,6 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS book_database;
+
 -- Create a database
 CREATE DATABASE IF NOT EXISTS book_database;
 
@@ -10,20 +13,6 @@ CREATE TABLE IF NOT EXISTS books (
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,
     note TEXT,
-    last_modification_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    last_modification_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    img VARCHAR(255) DEFAULT ''
 );
-
--- Insert a new book
-INSERT INTO books (title, author, note) 
-VALUES ('Sample Book', 'Sample Author', 'This is a sample note.');
-
--- Get the list of books
-SELECT * FROM books;
-
--- Update a book's properties
-UPDATE books 
-SET title = 'Updated Title', author = 'Updated Author', note = 'Updated Note' 
-WHERE id = 1;
-
--- Delete a book from the list
-DELETE FROM books WHERE id = 1;

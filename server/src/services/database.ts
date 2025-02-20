@@ -16,6 +16,7 @@ class Database {
 		sql: string,
 		params?: any[],
 		callback?: (error: Error | null, results?: T) => void,
+		multipleValuesParams?: boolean,
 	): Promise<void> {
 		this.connect().then(async () => {
 			if (!this.connection) {
@@ -28,7 +29,11 @@ class Database {
 				}
 			}
 			try {
-				const [results] = await this.connection.execute<T>(sql, params);
+				if (multipleValuesParams) {
+					var [results] = await this.connection.query<T>(sql, params);
+				} else {
+					var [results] = await this.connection.execute<T>(sql, params);
+				}
 				if (callback) {
 					callback(null, results);
 				}
@@ -58,7 +63,7 @@ export type BookAttributes = {
 	author: string;
 	note: string;
 	lastModificationDate: Date;
-	image: string;
+	img: string;
 };
 
 export default Database;

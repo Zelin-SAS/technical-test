@@ -7,21 +7,28 @@
         "dev": "nodemon src/index.ts",
         "build": "tsc",
         "serve": "node dist/index.js",
-        "format": "prettier --write \"src/**/*.ts\""
+        "format": "prettier --write \"src/**/*.ts\"",
+        "test": "mocha -r esbuild-register --parallel src/tests/*.spec.ts"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
         "axios": "^1.7.9",
+        "chai": "^5.2.0",
+        "chai-http": "^5.1.1",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "mysql2": "^3.12.0"
     },
     "devDependencies": {
         "@types/axios": "^0.14.4",
+        "@types/chai": "^5.0.1",
         "@types/express": "^5.0.0",
+        "@types/mocha": "^10.0.10",
         "@types/node": "^22.13.4",
+        "esbuild-register": "^3.6.0",
+        "mocha": "^11.1.0",
         "nodemon": "^3.1.9",
         "prettier": "^3.5.1",
         "ts-node": "^10.9.2",

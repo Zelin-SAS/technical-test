@@ -4,7 +4,7 @@ interface Book {
     author: string;
     note: string;
     last_modification: Date;
-    image: string;
+    img: string;
 }
 
 const bookSeeds: Book[] = [
@@ -14,7 +14,7 @@ const bookSeeds: Book[] = [
         author: "Harper Lee",
         note: "A classic novel of racism and injustice.",
         last_modification: new Date('2023-01-01'),
-        image: "https://m.media-amazon.com/images/I/71FxgtFKcQL._AC_UF1000,1000_QL80_.jpg"
+        img: "https://m.media-amazon.com/images/I/71FxgtFKcQL._AC_UF1000,1000_QL80_.jpg"
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const bookSeeds: Book[] = [
         author: "George Orwell",
         note: "A dystopian novel about totalitarianism.",
         last_modification: new Date('2023-02-01'),
-        image: "https://example.com/images/1984.jpg"
+        img: ""
     },
     {
         id: 3,
@@ -30,7 +30,7 @@ const bookSeeds: Book[] = [
         author: "F. Scott Fitzgerald",
         note: "A novel about the American dream.",
         last_modification: new Date('2023-03-01'),
-        image: "https://example.com/images/the-great-gatsby.jpg"
+        img: ""
     },
     {
         id: 4,
@@ -38,7 +38,7 @@ const bookSeeds: Book[] = [
         author: "Herman Melville",
         note: "A novel about the obsession with a white whale.",
         last_modification: new Date('2023-04-01'),
-        image: "https://example.com/images/moby-dick.jpg"
+        img: ""
     },
     {
         id: 5,
@@ -46,7 +46,7 @@ const bookSeeds: Book[] = [
         author: "Jane Austen",
         note: "A romantic novel about manners and marriage.",
         last_modification: new Date('2023-05-01'),
-        image: "https://example.com/images/pride-and-prejudice.jpg"
+        img: ""
     },
     {
         id: 6,
@@ -54,7 +54,7 @@ const bookSeeds: Book[] = [
         author: "Leo Tolstoy",
         note: "A novel about the French invasion of Russia.",
         last_modification: new Date('2023-06-01'),
-        image: "https://example.com/images/war-and-peace.jpg"
+        img: ""
     },
     {
         id: 7,
@@ -62,7 +62,7 @@ const bookSeeds: Book[] = [
         author: "J.D. Salinger",
         note: "A novel about teenage rebellion and angst.",
         last_modification: new Date('2023-07-01'),
-        image: "https://example.com/images/the-catcher-in-the-rye.jpg"
+        img: ""
     },
     {
         id: 8,
@@ -70,7 +70,7 @@ const bookSeeds: Book[] = [
         author: "J.R.R. Tolkien",
         note: "A fantasy novel about a hobbit's adventure.",
         last_modification: new Date('2023-08-01'),
-        image: "https://example.com/images/the-hobbit.jpg"
+        img: ""
     },
     {
         id: 9,
@@ -78,7 +78,7 @@ const bookSeeds: Book[] = [
         author: "Ray Bradbury",
         note: "A dystopian novel about book burning.",
         last_modification: new Date('2023-09-01'),
-        image: "https://example.com/images/fahrenheit-451.jpg"
+        img: ""
     },
     {
         id: 10,
@@ -86,7 +86,7 @@ const bookSeeds: Book[] = [
         author: "Charlotte Brontë",
         note: "A novel about the experiences of the titular character.",
         last_modification: new Date('2023-10-01'),
-        image: "https://example.com/images/jane-eyre.jpg"
+        img: ""
     },
     {
         id: 11,
@@ -94,7 +94,7 @@ const bookSeeds: Book[] = [
         author: "Aldous Huxley",
         note: "A dystopian novel about a futuristic society.",
         last_modification: new Date('2023-11-01'),
-        image: "https://example.com/images/brave-new-world.jpg"
+        img: ""
     },
     {
         id: 12,
@@ -102,7 +102,7 @@ const bookSeeds: Book[] = [
         author: "Emily Brontë",
         note: "A novel about the intense relationship between Catherine and Heathcliff.",
         last_modification: new Date('2023-12-01'),
-        image: "https://example.com/images/wuthering-heights.jpg"
+        img: ""
     },
     {
         id: 13,
@@ -110,7 +110,7 @@ const bookSeeds: Book[] = [
         author: "Homer",
         note: "An epic poem about the journey of Odysseus.",
         last_modification: new Date('2024-01-01'),
-        image: "https://example.com/images/the-odyssey.jpg"
+        img: ""
     },
     {
         id: 14,
@@ -118,7 +118,7 @@ const bookSeeds: Book[] = [
         author: "Fyodor Dostoevsky",
         note: "A novel about the mental anguish of a young man.",
         last_modification: new Date('2024-02-01'),
-        image: "https://example.com/images/crime-and-punishment.jpg"
+        img: ""
     },
     {
         id: 15,
@@ -126,7 +126,7 @@ const bookSeeds: Book[] = [
         author: "Fyodor Dostoevsky",
         note: "A novel about the moral struggles of three brothers.",
         last_modification: new Date('2024-03-01'),
-        image: "https://example.com/images/the-brothers-karamazov.jpg"
+        img: ""
     },
     {
         id: 16,
@@ -134,7 +134,7 @@ const bookSeeds: Book[] = [
         author: "Victor Hugo",
         note: "A novel about the struggles of ex-convict Jean Valjean.",
         last_modification: new Date('2024-04-01'),
-        image: "https://example.com/images/les-miserables.jpg"
+        img: ""
     },
     {
         id: 17,
@@ -142,7 +142,7 @@ const bookSeeds: Book[] = [
         author: "Leo Tolstoy",
         note: "A novel about the tragic love affair of Anna Karenina.",
         last_modification: new Date('2024-05-01'),
-        image: "https://example.com/images/anna-karenina.jpg"
+        img: ""
     },
     {
         id: 18,
@@ -150,7 +150,7 @@ const bookSeeds: Book[] = [
         author: "Dante Alighieri",
         note: "An epic poem about the journey through Hell, Purgatory, and Paradise.",
         last_modification: new Date('2024-06-01'),
-        image: "https://example.com/images/the-divine-comedy.jpg"
+        img: ""
     },
     {
         id: 19,
@@ -158,7 +158,7 @@ const bookSeeds: Book[] = [
         author: "Homer",
         note: "An epic poem about the Trojan War.",
         last_modification: new Date('2024-07-01'),
-        image: "https://example.com/images/the-iliad.jpg"
+        img: ""
     },
     {
         id: 20,
@@ -166,7 +166,7 @@ const bookSeeds: Book[] = [
         author: "Miguel de Cervantes",
         note: "A novel about the adventures of a nobleman.",
         last_modification: new Date('2024-08-01'),
-        image: "https://example.com/images/don-quixote.jpg"
+        img: ""
     }
 ];
 

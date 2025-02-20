@@ -11,8 +11,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_R_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   
   backend:
     container_name: book_backend

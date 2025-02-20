@@ -25,23 +25,20 @@ class Book {
 		Book.database.query(
 			"SELECT * FROM books",
 			[],
-			(err: Error | null, results?: mysql.RowDataPacket[]) => {
+			async (err: Error | null, results?: mysql.RowDataPacket[]) => {
 				if (err) {
 					res.status(500).send(err);
 				} else {
-					const books = results?.map(
-						async (row: any) => {
-							const validImage = await isImageUrlValid(row.image);
-							return new Book({
-								id: row.id,
-								title: row.title,
-								author: row.author,
-								note: row.note,
-								lastModificationDate: row.last_modification_date,
-								image: validImage ? row.image : "",
-							}).attributes
-						}
-					);
+					const books = results ? results.map(
+						(row: any) => new Book({
+							id: row.id,
+							title: row.title,
+							author: row.author,
+							note: row.note,
+							lastModificationDate: row.last_modification_date,
+							img: row.img,
+						}).attributes
+					) : [];
 					res.send(books);
 				}
 			},
@@ -58,7 +55,6 @@ class Book {
 				if (err) {
 					res.status(500).send(err);
 				} else {
-					const validImage = results?.length ? await isImageUrlValid(results[0].image) : false;
 					const book = results?.length
 						? new Book({
 								id: results[0].id,
@@ -66,7 +62,7 @@ class Book {
 								author: results[0].author,
 								note: results[0].note,
 								lastModificationDate: results[0].last_modification_date,
-								image: validImage ? results[0].image : "",
+								img: results[0].img,
 							}).attributes
 						: null;
 					res.send(book);
@@ -75,29 +71,40 @@ class Book {
 		);
 	}
 
-	static addBook(req: any, res: any): void {
-		const { title, author, note } = req.body;
+	static async addBook(req: any, res: any): Promise<void> {
+		const { title, author, note, img } = req.body;
+		const validImage = await isImageUrlValid(img);
 		Book.isDatabaseSet();
 		Book.database.query(
-			"INSERT INTO books (title, author, note) VALUES (?, ?, ?)",
-			[title, author, note],
+			"INSERT INTO books (title, author, note, img) VALUES (?, ?, ?, ?)",
+			[title, author, note, validImage ? img : ""],
 			(err: Error | null, result?: mysql.ResultSetHeader) => {
 				if (err) {
 					res.status(500).send(err);
 				} else {
-					res.send({ id: result?.insertId, title, author, note });
+					console.log(result);
+					const book = new Book({
+						id: result?.insertId || 0,
+						title,
+						author,
+						note,
+						lastModificationDate: new Date(),
+						img: validImage ? img : "",
+					}).attributes;
+					res.send(book);
 				}
 			},
 		);
 	}
 
-	static updateBook(req: any, res: any): void {
+	static async updateBook(req: any, res: any): Promise<void> {
 		const id = req.params.id;
-		const { title, author, note } = req.body;
+		const { title, author, note, img } = req.body;
+		const validImage = await isImageUrlValid(img) ? img : "";
 		Book.isDatabaseSet();
 		Book.database.query(
-			"UPDATE books SET title = ?, author = ?, note = ? WHERE id = ?",
-			[title, author, note, id],
+			"UPDATE books SET title = ?, author = ?, note = ?, img = ? WHERE id = ?",
+			[title, author, note, validImage, id],
 			(err: Error | null, result?: mysql.ResultSetHeader) => {
 				if (err) {
 					res.status(500).send(err);
@@ -127,7 +134,7 @@ class Book {
 	static loadSeeds(req: any, res: any): void {
 		Book.isDatabaseSet();
 		Book.database.query(
-			"INSERT INTO books (id, title, author, note, last_modification_date, image) VALUES ?",
+			"INSERT INTO books (id, title, author, note, last_modification_date, img) VALUES ?",
 			[Book.seeds.map((seed) => Object.values(seed))],
 			(err: Error | null, result?: mysql.ResultSetHeader) => {
 				if (err) {
@@ -136,6 +143,7 @@ class Book {
 					res.send(result);
 				}
 			},
+			true
 		);
 	}
 }
