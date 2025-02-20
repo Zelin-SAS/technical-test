@@ -1,13 +1,17 @@
 import mysql from "mysql2";
 import Database, { BookAttributes } from "../services/database";
+import { isImageUrlValid } from "../services/imageValidator";
+import bookSeeds from "../seeds/book";
 
 class Book {
 	private static database: Database;
+	private static seeds: BookAttributes[];
 
 	constructor(private attributes?: BookAttributes) {}
 
 	static setDatabase(database: Database) {
 		Book.database = database;
+		Book.seeds = Book.seeds || bookSeeds;
 	}
 
 	private static isDatabaseSet(): void {
@@ -26,14 +30,17 @@ class Book {
 					res.status(500).send(err);
 				} else {
 					const books = results?.map(
-						(row: any) =>
-							new Book({
+						async (row: any) => {
+							const validImage = await isImageUrlValid(row.image);
+							return new Book({
 								id: row.id,
 								title: row.title,
 								author: row.author,
 								note: row.note,
 								lastModificationDate: row.last_modification_date,
-							}).attributes,
+								image: validImage ? row.image : "",
+							}).attributes
+						}
 					);
 					res.send(books);
 				}
@@ -47,10 +54,11 @@ class Book {
 		Book.database.query(
 			"SELECT * FROM books WHERE id = ?",
 			[id],
-			(err: Error | null, results?: mysql.RowDataPacket[]) => {
+			async (err: Error | null, results?: mysql.RowDataPacket[]) => {
 				if (err) {
 					res.status(500).send(err);
 				} else {
+					const validImage = results?.length ? await isImageUrlValid(results[0].image) : false;
 					const book = results?.length
 						? new Book({
 								id: results[0].id,
@@ -58,6 +66,7 @@ class Book {
 								author: results[0].author,
 								note: results[0].note,
 								lastModificationDate: results[0].last_modification_date,
+								image: validImage ? results[0].image : "",
 							}).attributes
 						: null;
 					res.send(book);
@@ -105,6 +114,21 @@ class Book {
 		Book.database.query(
 			"DELETE FROM books WHERE id = ?",
 			[id],
+			(err: Error | null, result?: mysql.ResultSetHeader) => {
+				if (err) {
+					res.status(500).send(err);
+				} else {
+					res.send(result);
+				}
+			},
+		);
+	}
+
+	static loadSeeds(req: any, res: any): void {
+		Book.isDatabaseSet();
+		Book.database.query(
+			"INSERT INTO books (id, title, author, note, last_modification_date, image) VALUES ?",
+			[Book.seeds.map((seed) => Object.values(seed))],
 			(err: Error | null, result?: mysql.ResultSetHeader) => {
 				if (err) {
 					res.status(500).send(err);

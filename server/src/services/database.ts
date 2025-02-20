@@ -58,6 +58,7 @@ export type BookAttributes = {
 	author: string;
 	note: string;
 	lastModificationDate: Date;
+	image: string;
 };
 
 export default Database;

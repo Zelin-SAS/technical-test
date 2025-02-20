@@ -40,8 +40,11 @@ const routes = [
 		path: "/books",
 		handler: (req: any, res: any) => Book.addBook(req, res),
 	},
-	// { method: 'put', path: '/books/:id', handler: router.updateUser },
-	// { method: 'delete', path: '/books/:id', handler: router.deleteUser }
+	{
+		method: "put",
+		path: "/books/loadSeeds",
+		handler: (req: any, res: any) => Book.loadSeeds(req, res),
+	}
 ];
 
 routes.forEach((route) =>
