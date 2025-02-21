@@ -1,10 +1,10 @@
-import Dashbord from './dashboard';
+import Pannel from './admin';
 import Login from './login';
 import Landing from './landing';
 import NotFound from './notFound';
 
 export {
-    Dashbord,
+    Pannel,
     Login,
     Landing,
     NotFound,

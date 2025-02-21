@@ -17,7 +17,7 @@ export default function Login() {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" onSubmit={(e) => {
               e.preventDefault();
-              window.location.href = '/dashboard';
+              window.location.href = '/admin';
             }}>
               <div>
                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">

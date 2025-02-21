@@ -11,19 +11,20 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
     const [formBook, setFormBook] = useState<Book | null | undefined>(book);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const book : Book = {
-            id: formBook?.id || 0,
-            title: formBook?.title || "",
-            author: formBook?.author || "",
-            note: formBook?.note || "",
-            lastModificationDate: new Date(),
-            img: formBook?.img || ""
+        if(!formBook) {
+            setFormBook({
+                id: 0,
+                title: "",
+                author: "",
+                note: "",
+                lastModificationDate: new Date(),
+                img: ""
+            });
         }
         setFormBook({
-            ...book,
-            [e.target.name]: e.target.value
-        });
-        console.log(formBook);
+            ...formBook,
+            [e.target.name]: e.target.value || ""
+        } as Book);
     }
     return (
     <div className="flex flex-col h-full justify-between">
@@ -38,7 +39,7 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                         id="title"
                         name="title"
                         type="text"
-                        value={book?.title}
+                        value={formBook?.title}
                         onChange={handleInputChange}
                         placeholder="The Hobbit"
                         className="block w-full py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/8"
@@ -56,7 +57,7 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                         id="author"
                         name="author"
                         type="text"
-                        value={book?.author}
+                        value={formBook?.author}
                         onChange={handleInputChange}
                         placeholder="J.R.R. Tolkien"
                         className="block w-full py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/8"
@@ -73,7 +74,7 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                     <textarea
                         id="note"
                         name="note"
-                        value={book?.note}
+                        value={formBook?.note}
                         onChange={handleInputChange}
                         placeholder="A classic fantasy novel"
                         rows={3}
@@ -92,7 +93,7 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                         id="img"
                         name="img"
                         type="text"
-                        value={book?.img}
+                        value={formBook?.img}
                         onChange={handleInputChange}
                         placeholder="https://example.com/image.jpg"
                         className="block w-full py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/8"

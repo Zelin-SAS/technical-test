@@ -6,3 +6,9 @@ export interface Book {
     lastModificationDate: Date;
     img: string;
 }
+
+export interface SidebarSection {
+    title: string;
+    icon: React.ReactNode;
+    pannel: React.ReactNode;
+}

@@ -12,11 +12,11 @@ interface Props {
 }
 
 export default function Drawer({ children, isOpen, title, description, size = "md", onClose } : Props) {
-  const [open, setOpen] = useState<boolean>(true)
+  const [open, setOpen] = useState<boolean>(false)
 
-    useEffect(() => {
-        setOpen(isOpen)
-    }, [isOpen]);
+  useEffect(() => {
+      setOpen(isOpen)
+  }, [isOpen]);
 
   return (
     <Dialog open={open} onClose={onClose} className="relative z-10">
@@ -32,8 +32,8 @@ export default function Drawer({ children, isOpen, title, description, size = "m
               transition
               className={`pointer-events-auto relative w-screen max-w-${size} transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700`}
             >
-              <div className="flex h-full flex-col bg-white pt-6 shadow-xl">
-                <div className="px-4 sm:px-6">
+              <div className="flex h-full flex-col bg-white shadow-xl">
+                <div className="px-4 py-6 bg-[#DCF763] border-b border-gray-200 sm:px-6">
                   <div className="flex items-center justify-between">
                     <div>
                         <DialogTitle className="text-2xl font-semibold text-gray-900">{title}</DialogTitle>

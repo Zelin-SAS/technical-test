@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Landing, Login, Dashbord, NotFound } from './pages';
+import { Landing, Login, Pannel, NotFound } from './pages';
 import { DataProvider } from './components/context';
 
 
@@ -11,7 +11,7 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/dashboard" element={<Dashbord />} />
+                    <Route path="/admin" element={<Pannel />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
