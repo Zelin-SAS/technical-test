@@ -44,6 +44,26 @@ export default function Dashbord() {
         }
     }
 
+    const handleFillterBook = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const filter = e.target.value;
+        switch(filter) {
+            case "recent":
+                const recentBooks = state.books.sort((a: Book, b: Book) => new Date(b.lastModificationDate).getTime() - new Date(a.lastModificationDate).getTime());
+                dispatch({ type: "BOOKS_FETCH", payload: recentBooks });
+                break;
+            case "increasing":
+                const increasingBooks = state.books.sort((a: Book, b: Book) => a.title.localeCompare(b.title));
+                dispatch({ type: "BOOKS_FETCH", payload: increasingBooks });
+                break;
+            case "decreasing":
+                const decreasingBooks = state.books.sort((a: Book, b: Book) => b.title.localeCompare(a.title));
+                dispatch({ type: "BOOKS_FETCH", payload: decreasingBooks });
+                break;
+        }
+        setBooks(state.books);
+    }
+
+
     const fetchData = () => {
         dispatch({ type: "BOOKS_PROCESS_REQUEST"});
         if(state.books.length == books.length && state.books.length > 0) {
@@ -67,11 +87,17 @@ export default function Dashbord() {
                 <div className="w-full rounded-lg shadow-sm p-4 mb-4 bg-white">
                     <div className="flex flex-wrap gap-2 justify-between items-center">
                         <div className="flex items-center">
-                            <div className="flex items-center rounded-md bg-white pl-3 pr-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
-                                <Select name="filter" aria-label="Filter" className="w-32 h-8">
+                            <div className="flex items-center rounded-md bg-white pl-3 pr-3 outline-1 -outline-offset-1 outline-gray-300">
+                                <Select 
+                                    name="filter"
+                                    aria-label="Filter"
+                                    className="w-32 h-8 focus:outline-none hover:cursor-pointer"
+                                    onChange={handleFillterBook}
+                                >
                                     <option value="all">All</option>
                                     <option value="recent">Recent</option>
-                                    <option value="popular">Popular</option>
+                                    <option value="increasing">A~Z</option>
+                                    <option value="decreasing">Z~A</option>
                                 </Select>
                             </div>
                         </div>
