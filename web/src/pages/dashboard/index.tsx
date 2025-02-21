@@ -34,6 +34,16 @@ export default function Dashbord() {
         }
     }
 
+    const handleSearchBook = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const search = e.target.value;
+        if(search.length > 0) {
+            const filteredBooks = books.filter((book) => book.title.toLowerCase().includes(search.toLowerCase()));
+            setBooks(filteredBooks);
+        } else {
+            setBooks(state.books);
+        }
+    }
+
     const fetchData = () => {
         dispatch({ type: "BOOKS_PROCESS_REQUEST"});
         if(state.books.length == books.length && state.books.length > 0) {
@@ -53,9 +63,9 @@ export default function Dashbord() {
     return (
         <div className="flex w-full h-screen">
             <Sidebar />
-            <div className="flex flex-col h-screen p-4">
+            <div className="flex flex-col w-full  h-screen p-4">
                 <div className="w-full rounded-lg shadow-sm p-4 mb-4 bg-white">
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-wrap gap-2 justify-between items-center">
                         <div className="flex items-center">
                             <div className="flex items-center rounded-md bg-white pl-3 pr-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
                                 <Select name="filter" aria-label="Filter" className="w-32 h-8">
@@ -66,7 +76,7 @@ export default function Dashbord() {
                             </div>
                         </div>
                         <div className="flex items-center">
-                            <IconedInput placeholder="Search for a book">
+                            <IconedInput placeholder="Search for a book by title" inputChange={handleSearchBook}>
                                 <MagnifyingGlassIcon className="w-4 h-4 text-gray-500"></MagnifyingGlassIcon>
                             </IconedInput>
                         </div>
