@@ -3,6 +3,9 @@ FROM node:20.13.1
 # Create app directory
 WORKDIR /app
 
+# Install nc to check if the backend is up
+RUN apt-get update && apt-get install -y netcat-traditional
+
 # Bundle app source
 COPY . .
 
@@ -24,4 +27,4 @@ RUN npm install
 EXPOSE $BACKEND_PORT
 
 # Run the app
-CMD [ "npm", "start" ]
+CMD [ "script/endpoint.sh" ]

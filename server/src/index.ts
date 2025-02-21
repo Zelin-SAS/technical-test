@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import Database from "./services/database";
 import AppRouter from "./services/router";
 import Book from "./entity/book";
-import path from "path";
+import cors from "cors";
 
 dotenv.config();
 
@@ -22,6 +22,7 @@ const app = express();
 const PORT = process.env.BACKEND_PORT || 3000;
 
 app.use(express.json());
+app.use(cors());
 
 const router = new AppRouter(app);
 
@@ -65,3 +66,4 @@ routes.forEach((route) =>
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
+

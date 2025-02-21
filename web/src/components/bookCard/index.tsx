@@ -23,7 +23,7 @@ export function AdminBookCard({img, title, lastUpdate, author} : Props) {
                 </a>
             </h1>
             <p className="text-grey-darker text-sm hidden">
-                {lastUpdate.toLocaleDateString()}
+                {lastUpdate.toLocaleString()}
             </p>
         </header>
 
