@@ -30,3 +30,22 @@
 29 timing npm:load Completed in 42ms
 30 silly logfile start cleaning logs, removing 1 files
 31 silly logfile done cleaning log files
+32 timing command:run Completed in 5958920ms
+33 verbose stack Error: command failed
+33 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/@npmcli/promise-spawn/lib/index.js:53:27)
+33 verbose stack     at ChildProcess.emit (node:events:519:28)
+33 verbose stack     at maybeClose (node:internal/child_process:1105:16)
+33 verbose stack     at ChildProcess._handle.onexit (node:internal/child_process:305:5)
+34 verbose pkgid zelin-booklibrary-test@0.0.0
+35 verbose cwd /app
+36 verbose Linux 5.15.167.4-microsoft-standard-WSL2
+37 verbose node v20.13.1
+38 verbose npm  v10.5.2
+39 error path /app
+40 error command failed
+41 error signal SIGTERM
+42 error command sh -c vite
+43 verbose exit 1
+44 timing npm Completed in 5959002ms
+45 verbose code 1
+46 error A complete log of this run can be found in: /app/.npm/_logs/2025-02-21T01_03_29_864Z-debug-0.log

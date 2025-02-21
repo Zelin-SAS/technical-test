@@ -1,16 +1,35 @@
 import LogoLight from '../../assets/zbook-logo-1.svg'
-import { BookOpenIcon } from '@heroicons/react/24/outline'
+import { BookOpenIcon, PlusIcon } from '@heroicons/react/24/outline'
+import Drawer from '../drawer'
+import { BookForm } from '../form'
+import { useState } from 'react';
+import { useData } from '../context';
+import { Book } from '../../services/interfaces';
+import { createBook } from '../../services/fetcher';
 
 export default function Sidebar() {
-    // const [mobileSidebarClose, setMobileSidebarClose] = useState(false);
+    const { dispatch } = useData();
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
+    const handleAddBook = (book: Book | null | undefined) => {
+        if(book) {
+            createBook(book).then(() => {
+                dispatch({ type: "BOOKS_CLEAR"});
+                setIsDrawerOpen(false);
+            });
+        }
+    }
 
     return (
     <div className="h-full w-full border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-[280px]">
-        <div className="w-[calc(100%-16px)] rounded m-2 mx-4 mb-0 mt-3 h-max">
+        <div className="w-[calc(100%-16px)] rounded m-2 mx-4 mb-0 mt-3 h-max flex items-center justify-between">
             <a href="#" className="flex items-center">
-                <img src={LogoLight} alt="ZBook Logo" className="h-8 w-auto" />
-                <span className="ml-2 text-xl font-bold text-gray-900">ZeBook</span>
+            <img src={LogoLight} alt="ZBook Logo" className="h-8 w-auto" />
+            <span className="ml-2 text-xl font-bold text-gray-900">ZeBook</span>
             </a>
+            <button className="p-2 hover:font-bold hover:cursor-pointer" onClick={() => setIsDrawerOpen(true)}>
+                <PlusIcon aria-hidden="true" className="size-6" />
+            </button>
         </div>
         <div className="w-full h-max rounded p-3">
             <ul className="flex flex-col gap-0.5 min-w-60">
@@ -41,6 +60,14 @@ export default function Sidebar() {
                     </span>Trash</li>
             </ul>
         </div>
+        <Drawer 
+            isOpen={isDrawerOpen}
+            title="Add new book"
+            description="Add a new book to the library. Fill in the details below and save to add the book to your collection."
+            size="md" 
+            onClose={() => setIsDrawerOpen(false)}>
+            <BookForm book={null} onCancel={() => setIsDrawerOpen(false)} onSave={(book) => handleAddBook(book)}/>
+        </Drawer>
     </div>
   )
 }
