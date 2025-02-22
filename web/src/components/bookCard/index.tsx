@@ -3,7 +3,7 @@ import NotFound from "../../assets/notFoundImage.png"
 import { Confirm } from "../modal";
 import { useState } from "react";
 
-interface Props {
+interface AdminProps {
   img: string;
   title: string;
   lastUpdate: Date;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 
-export function AdminBookCard({img, title, lastUpdate, author, onEdit, onDelete } : Props) {
+export function AdminBookCard({img, title, lastUpdate, author, onEdit, onDelete } : AdminProps) {
     const [open, setOpen] = useState<boolean>(false);
     
     const handleDelete = () => {
@@ -65,5 +65,25 @@ export function AdminBookCard({img, title, lastUpdate, author, onEdit, onDelete 
             />
 
         </article>
+    )
+}
+
+interface Props {
+    img: string;
+    title: string;
+    author: string;
+}
+
+export function BookCard({img, title, author } : Props) {
+    return (
+        <div className="flex flex-col">
+            <div className="flex justify-center rounded-[24px] shadow-lg w-60 h-96 overflow-hidden">
+                <img src={img} alt="book cover" className="" />
+            </div>
+            <div className="flex flex-col items-center justify-center mt-2">
+                <h1 className="text-lg font-semibold">{title}</h1>
+                <p className="text-sm text-gray-500">{author}</p>
+            </div>
+        </div>
     )
 }

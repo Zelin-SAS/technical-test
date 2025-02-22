@@ -1,36 +1,45 @@
-import Header from '../../components/header'
-import Hero from '../../components/hero'
+import { useEffect } from 'react';
+import Light from '../../components/decoration/light'
+import Category from './sections/category'
+import Header from './sections/header'
+import Hero from './sections/hero'
+import { fetchBooks } from '../../services/fetcher';
+import { useData } from '../../components/context';
+import NewArrival from './sections/newArrival';
+import Shape from '../../components/decoration/shape';
 
 export default function Landing() {
+  const { state, dispatch } = useData();
+
+  const fetchData = () => {
+    dispatch({ type: "BOOKS_PROCESS_REQUEST"});
+    if(state.books.length > 0) {
+      return;
+    } else {
+      fetchBooks().then((data) => {
+        dispatch({ type: "BOOKS_FETCH", payload: data });
+      });
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [state.books]);
+
   return (
     <div>
       <Header />
       <div className="relative isolate px-6 pt-14 lg:px-8">
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-        >
-          <div
-            style={{
-              clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            }}
-            className="relative left-[calc(50%-11rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
-        </div>
+        <Light colors={['#DCF763', '#BFB7B6']} position="center" />
         <Hero />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-        >
-          <div
-            style={{
-              clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-            }}
-            className="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-          />
-        </div>
+      </div>
+      <Shape position="left" rotation={15} />
+      <div className='my-20 px-6 lg:px-8 w-full'>
+        <Category />
+      </div>
+      <Light colors={['#DCF763', '#BFB7B6']} position="left" />
+      <div className="my-20 px-6 lg:px-8 w-full">
+        <NewArrival />
       </div>
     </div>
   )
