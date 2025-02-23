@@ -82,7 +82,11 @@ const dataReducer = (state: any, action: any) => {
                 ...state,
                 user: {},
             };
+        case "LOGIN":
+            localStorage.setItem('zebook_logged_user', JSON.stringify(action.payload));
+            return {...state};
         case "LOGOUT":
+            localStorage.removeItem('zebook_logged_user');
             return initialState;
         default:
             return state;

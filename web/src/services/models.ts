@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://localhost:'+ (process.env.BACKEND_PORT || 3001);
 
 export async function fetchBooks() {
     const response = await fetch(`${API_BASE_URL}/books`);
@@ -54,3 +54,16 @@ export async function deleteBook(bookId: string) {
     return response.json();
 }
 
+export async function loginUser(userData: any) {
+    const response = await fetch(`${API_BASE_URL}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    });
+    if (!response.ok) {
+        throw new Error('Failed to login user');
+    }
+    return response.json();
+}

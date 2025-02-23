@@ -1,4 +1,4 @@
-export interface Book {
+export type Book = {
     id: number;
     title: string;
     author: string;
@@ -8,8 +8,13 @@ export interface Book {
     img: string;
 }
 
-export interface SidebarSection {
+export type SidebarSection = {
     title: string;
     icon: React.ReactNode;
     pannel: React.ReactNode;
+}
+
+export type UserLogin = {
+    name?: string;
+    email?: string;
 }

@@ -5,14 +5,17 @@ import { BookForm } from '../form'
 import { useState } from 'react';
 import { useData } from '../context';
 import { Book, SidebarSection } from '../../services/interfaces';
-import { createBook } from '../../services/fetcher';
+import { createBook } from '../../services/models';
+import { UserLogin } from '../../services/interfaces';
 
-interface SidebarProps {
+type SidebarProps = {
     sections: SidebarSection[];
+    currentUser: UserLogin;
     onClickSection: (section: SidebarSection) => void;
+    onLogout: () => void;
 }
 
-export default function Sidebar({ sections, onClickSection }: SidebarProps) {
+export default function Sidebar({ sections, currentUser, onClickSection, onLogout }: SidebarProps) {
     const { dispatch } = useData();
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [activeSection, setActiveSection] = useState<string>("Library");
@@ -25,11 +28,6 @@ export default function Sidebar({ sections, onClickSection }: SidebarProps) {
             });
         }
     }
-
-    const handleLogout = () => {
-        dispatch({ type: "LOGOUT"});
-        window.location.href = "/login";
-    };
 
     return (
     <div className="flex flex-col h-full w-full border shadow-sm overflow-hidden bg-white border-stone-200 shadow-stone-950/5 max-w-[280px]">
@@ -65,11 +63,11 @@ export default function Sidebar({ sections, onClickSection }: SidebarProps) {
             <UserCircleIcon aria-hidden="true"
                 className="inline-block size-10 rounded-full ring-2 ring-white" />
             <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">John Doe</p>
-                <p className="text-xs text-gray-500">john.doe@example.com</p>
+                <p className="text-sm font-medium text-gray-900">{currentUser.name}</p>
+                <p className="text-xs text-gray-500">{currentUser.email}</p>
             </div>
             </div>
-            <button className="p-2 hover:font-bold hover:cursor-pointer" onClick={handleLogout}>
+            <button className="p-2 hover:font-bold hover:cursor-pointer" onClick={onLogout}>
                 <PowerIcon aria-hidden="true" className="size-6 text-red-700" />
             </button>
         </div>

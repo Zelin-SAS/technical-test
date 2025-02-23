@@ -128,8 +128,7 @@ export default class User {
                 if (err) {
                     res.status(500).send(err);
                 } else {
-                    if (result && Array.isArray(result)) {
-                        console.log(result[0]);
+                    if (result && Array.isArray(result) && result.length > 0) {
                         res.send({ email: result[0].email, username: result[0].username, userlastname: result[0].userlastname });
                     } else {
                         res.status(404).send({ message: "User not found" });

@@ -13,4 +13,7 @@ sleep 5
 
 # Load the seeds into the database
 curl -X PUT http://localhost:$BACKEND_PORT/books/loadSeeds &
-curl -X PUT http://localhost:$BACKEND_PORT/users/loadSeeds
+curl -X PUT http://localhost:$BACKEND_PORT/users/loadSeeds &
+
+# idle forever
+wait

@@ -1,8 +1,41 @@
+import { createRef, useEffect, useState } from 'react';
 import LogoLight from '../../assets/zbook-logo-1.svg'
+import { useData } from '../../components/context';
+import { loginUser } from '../../services/models';
+import { Toast } from '../../components/toast';
 
 export default function Login() {
+    const { dispatch } = useData();
+    const [error, setError] = useState<boolean>(false);
+    const emailRef = createRef<HTMLInputElement>();
+    const passwordRef = createRef<HTMLInputElement>();
+
+    const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+
+        loginUser({ email, password }).then((data) => {
+            dispatch({ type: "LOGIN", payload: data });
+            window.location.href = "/admin";
+        }).catch(() => {
+            emailRef.current!.value = "";
+            passwordRef.current!.value = "";
+            setError(true);
+        });
+    }
+
+    useEffect(() => {
+        const user = localStorage.getItem("zebook_logged_user");
+        if (user) {
+            window.location.href = "/admin";
+        }
+    }, []);
+
     return (
       <>
+      <Toast isOpen={error} title="Failed!" message="Something went wrong while trying to log in. Try again." type="error" onClose={() => setError(false)} />
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex item-center justify-center">
@@ -15,10 +48,7 @@ export default function Login() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" onSubmit={(e) => {
-              e.preventDefault();
-              window.location.href = '/admin';
-            }}>
+            <form className="space-y-6" onSubmit={handleLogin}>
               <div>
                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                   Email address
@@ -30,6 +60,7 @@ export default function Login() {
                     type="email"
                     required
                     autoComplete="email"
+                    ref={emailRef}
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   />
                 </div>
@@ -53,6 +84,7 @@ export default function Login() {
                     type="password"
                     required
                     autoComplete="current-password"
+                    ref={passwordRef}
                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   />
                 </div>
@@ -61,7 +93,7 @@ export default function Login() {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-[#DCF763] border border-[#435058] px-3 py-1.5 text-sm/6 font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="hover:cursor-pointer flex w-full justify-center rounded-md bg-[#DCF763] border border-[#435058] px-3 py-1.5 text-sm/6 font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2"
                 >
                   Sign in
                 </button>

@@ -3,7 +3,7 @@ import Light from '../../components/decoration/light'
 import Category from './sections/category'
 import Header from './sections/header'
 import Hero from './sections/hero'
-import { fetchBooks } from '../../services/fetcher';
+import { fetchBooks } from '../../services/models';
 import { useData } from '../../components/context';
 import NewArrival from './sections/newArrival';
 import Shape from '../../components/decoration/shape';
