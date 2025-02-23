@@ -16,7 +16,6 @@ export default function HorizontalCarousel({ children, title }: Props) {
     };
 
     const scrollRight = () => {
-        console.log(scrollContainerRef.current);
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
         }

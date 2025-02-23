@@ -37,7 +37,8 @@ describe('POST /books', function() {
         const book = {
             title: 'Test Book',
             author: 'Test Author',
-            note: 'Test Note',
+            note: 0,
+            description: 'Test Dscription',
             img: 'https://via.placeholder.com/150'
         };
         const res = await axios.post(`${API_URL}/books`, book);
@@ -46,7 +47,8 @@ describe('POST /books', function() {
         expect(res.data).to.be.an('object');
         expect(res.data).to.have.property('title').eq('Test Book');
         expect(res.data).to.have.property('author').eq('Test Author');
-        expect(res.data).to.have.property('note').eq('Test Note');
+        expect(res.data).to.have.property('note').eq(0);
+        expect(res.data).to.have.property('description').eq('Test Dscription');
         expect(res.data).to.have.property('img').eq('');
     });
 });
@@ -58,7 +60,8 @@ describe('PATCH /book/:id', function() {
         const book = {
             title: 'Updated Test Book',
             author: 'Updated Test Author',
-            note: 'Updated Test Note',
+            note: 3,
+            description: 'Updated Test Description',
             img: 'https://via.placeholder.com/151'
         };
         const res = await axios.patch(`${API_URL}/book/${lastAddedBookId}`, book);

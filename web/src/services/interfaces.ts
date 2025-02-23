@@ -2,8 +2,9 @@ export interface Book {
     id: number;
     title: string;
     author: string;
-    note: string;
-    lastModificationDate: Date;
+    note: number;
+    description: string;
+    last_modification: Date;
     img: string;
 }
 

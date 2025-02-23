@@ -35,7 +35,8 @@ class Book {
 							title: row.title,
 							author: row.author,
 							note: row.note,
-							lastModificationDate: row.last_modification_date,
+							description: row.description,
+							last_modification: row.last_modification_date,
 							img: row.img,
 						}).attributes
 					) : [];
@@ -61,7 +62,8 @@ class Book {
 								title: results[0].title,
 								author: results[0].author,
 								note: results[0].note,
-								lastModificationDate: results[0].last_modification_date,
+								description: results[0].description,
+								last_modification: results[0].last_modification_date,
 								img: results[0].img,
 							}).attributes
 						: null;
@@ -72,12 +74,12 @@ class Book {
 	}
 
 	static async addBook(req: any, res: any): Promise<void> {
-		const { title, author, note, img } = req.body;
+		const { title, author, description, note, img } = req.body;
 		const validImage = await isImageUrlValid(img);
 		Book.isDatabaseSet();
 		Book.database.query(
-			"INSERT INTO books (title, author, note, img) VALUES (?, ?, ?, ?)",
-			[title, author, note, validImage ? img : ""],
+			"INSERT INTO books (title, author, note, description, img) VALUES (?, ?, ?, ?, ?)",
+			[title, author, note, description, validImage ? img : ""],
 			(err: Error | null, result?: mysql.ResultSetHeader) => {
 				if (err) {
 					res.status(500).send(err);
@@ -88,7 +90,8 @@ class Book {
 						title,
 						author,
 						note,
-						lastModificationDate: new Date(),
+						description,
+						last_modification: new Date(),
 						img: validImage ? img : "",
 					}).attributes;
 					res.send(book);
@@ -99,12 +102,12 @@ class Book {
 
 	static async updateBook(req: any, res: any): Promise<void> {
 		const id = req.params.id;
-		const { title, author, note, img } = req.body;
+		const { title, author, note, description, img } = req.body;
 		const validImage = await isImageUrlValid(img) ? img : "";
 		Book.isDatabaseSet();
 		Book.database.query(
-			"UPDATE books SET title = ?, author = ?, note = ?, img = ? WHERE id = ?",
-			[title, author, note, validImage, id],
+			"UPDATE books SET title = ?, author = ?, note = ?, description= ?, img = ? WHERE id = ?",
+			[title, author, note, description, validImage, id],
 			(err: Error | null, result?: mysql.ResultSetHeader) => {
 				if (err) {
 					res.status(500).send(err);
@@ -134,7 +137,7 @@ class Book {
 	static loadSeeds(req: any, res: any): void {
 		Book.isDatabaseSet();
 		Book.database.query(
-			"INSERT INTO books (id, title, author, note, last_modification_date, img) VALUES ?",
+			"INSERT INTO books (id, title, author, note, description, last_modification_date, img) VALUES ?",
 			[Book.seeds.map((seed) => Object.values(seed))],
 			(err: Error | null, result?: mysql.ResultSetHeader) => {
 				if (err) {

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Book } from "../../services/interfaces"
+import Stars from "../stars"
 
 interface Props {
     book?: Book | null
@@ -16,8 +17,9 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                 id: 0,
                 title: "",
                 author: "",
-                note: "",
-                lastModificationDate: new Date(),
+                note: 0,
+                description: "",
+                last_modification: new Date(),
                 img: ""
             });
         }
@@ -70,11 +72,19 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                     Note
                 </label>
                 <div className="mt-2">
+                    <Stars note={formBook?.note} interactive onChange={(note) => setFormBook({...formBook, note, id: formBook?.id || 0, title: formBook?.title || "", author: formBook?.author || "", description: formBook?.description || "", last_modification: formBook?.last_modification || new Date(), img: formBook?.img || ""})} />
+                </div>
+            </div>
+            <div className="sm:col-span-6">
+                <label htmlFor="description" className="block text-sm/8 font-bold text-gray-700">
+                    Description
+                </label>
+                <div className="mt-2">
                     <div className="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                     <textarea
-                        id="note"
-                        name="note"
-                        value={formBook?.note}
+                        id="description"
+                        name="description"
+                        value={formBook?.description}
                         onChange={handleInputChange}
                         placeholder="A classic fantasy novel"
                         rows={3}

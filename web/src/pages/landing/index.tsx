@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { createRef, useEffect } from 'react';
 import Light from '../../components/decoration/light'
 import Category from './sections/category'
 import Header from './sections/header'
@@ -10,6 +10,9 @@ import Shape from '../../components/decoration/shape';
 
 export default function Landing() {
   const { state, dispatch } = useData();
+  const homeRef = createRef<HTMLDivElement>();
+  const categoryRef = createRef<HTMLDivElement>();
+  const newArrivalRef = createRef<HTMLDivElement>();
 
   const fetchData = () => {
     dispatch({ type: "BOOKS_PROCESS_REQUEST"});
@@ -28,17 +31,17 @@ export default function Landing() {
 
   return (
     <div>
-      <Header />
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      <Header sectionRefs={[homeRef, categoryRef, newArrivalRef]}/>
+      <div className="relative isolate px-6 pt-14 lg:px-8" ref={homeRef}>
         <Light colors={['#DCF763', '#BFB7B6']} position="center" />
         <Hero />
       </div>
       <Shape position="left" rotation={15} />
-      <div className='my-20 px-6 lg:px-8 w-full'>
+      <div className='my-20 px-6 lg:px-20 w-full' ref={categoryRef}>
         <Category />
       </div>
       <Light colors={['#DCF763', '#BFB7B6']} position="left" />
-      <div className="my-20 px-6 lg:px-8 w-full">
+      <div className="my-20 px-6 lg:px-20 w-full" ref={newArrivalRef}>
         <NewArrival />
       </div>
     </div>

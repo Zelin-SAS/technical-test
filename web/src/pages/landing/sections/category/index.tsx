@@ -57,7 +57,7 @@ export default function Category() {
 
   return (
     <div className="relative z-1">
-        <HorizontalCarousel title="Shop by category">
+        <HorizontalCarousel title="See by Category">
             <div className="flex gap-6 p-4">
                 {Categories.map((category, index) => (
                     <div key={index} className="hover:cursor-pointer flex items-center w-max min-w-60 space-x-4 p-4 bg-white rounded-lg">

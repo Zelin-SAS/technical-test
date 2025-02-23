@@ -11,7 +11,7 @@ interface Props {
     duration?: number;
 }
 
-export function Toast({ isOpen, title, message, type, onClose, duration = 3000 }: Props) {
+export function Toast({ isOpen, title, message, type, onClose, duration = 2000 }: Props) {
     const [open, setOpen] = useState(false);
 
     const getIcon = () => {

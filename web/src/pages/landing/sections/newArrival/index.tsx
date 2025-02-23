@@ -13,7 +13,7 @@ export default function NewArrival({}: Props) {
     useEffect(() => {
         dispatch({ type: "BOOKS_PROCESS_REQUEST"});
         if (state.books) {
-            const sortedBooks = [...state.books].sort((a: Book, b: Book) => new Date(b.lastModificationDate).getTime() - new Date(a.lastModificationDate).getTime());
+            const sortedBooks = [...state.books].sort((a: Book, b: Book) => new Date(b.last_modification).getTime() - new Date(a.last_modification).getTime());
             setBooks(sortedBooks.slice(0, 10));
         }
     }, [state.books]);
@@ -24,7 +24,7 @@ export default function NewArrival({}: Props) {
             <HorizontalCarousel title="New Arrivals">
                 <div className="flex gap-6 p-4">
                     {books.map((book: Book) => (
-                        <BookCard key={book.id} title={book.title} author={book.author} img={book.img} />
+                        <BookCard key={book.id} title={book.title} author={book.author} note={book.note} img={book.img} />
                     ))}
                 </div>
             </HorizontalCarousel>

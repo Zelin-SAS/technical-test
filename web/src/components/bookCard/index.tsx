@@ -1,4 +1,4 @@
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, StarIcon, TrashIcon } from "@heroicons/react/24/solid";
 import NotFound from "../../assets/notFoundImage.png"
 import { Confirm } from "../modal";
 import { useState } from "react";
@@ -72,13 +72,20 @@ interface Props {
     img: string;
     title: string;
     author: string;
+    note: number;
 }
 
-export function BookCard({img, title, author } : Props) {
+export function BookCard({img, title, author, note } : Props) {
     return (
         <div className="flex flex-col">
             <div className="flex justify-center rounded-[24px] shadow-lg w-60 h-96 overflow-hidden">
-                <img src={img} alt="book cover" className="" />
+                <div className="relative">
+                    <img src={img} alt="book cover" className="h-full w-full" />
+                    <div className="absolute top-2 left-2 bg-[#DCF763] border border-[#435058] rounded-full flex items-center justify-start p-1 px-2 gap-1 shadow-md">
+                        <StarIcon className="size-4" />
+                        <div className="size-4 text-sm font-semibold">{note}</div>
+                    </div>
+                </div>
             </div>
             <div className="flex flex-col items-center justify-center mt-2">
                 <h1 className="text-lg font-semibold">{title}</h1>

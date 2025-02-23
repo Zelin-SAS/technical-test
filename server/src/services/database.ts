@@ -57,13 +57,14 @@ class Database {
 	}
 }
 
-export type BookAttributes = {
-	id: number;
-	title: string;
-	author: string;
-	note: string;
-	lastModificationDate: Date;
-	img: string;
-};
+export interface BookAttributes {
+    id: number;
+    title: string;
+    author: string;
+    note: number;
+    description: string;
+    last_modification: Date;
+    img: string;
+}
 
 export default Database;

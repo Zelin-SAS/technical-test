@@ -1,25 +1,61 @@
 import HeroImage from '../../../../assets/hero-image.png'
 import Vector from '../../../../assets/vector.svg'
 import Shape from '../../../../components/decoration/shape'
-import { MagnifyingGlassIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState } from 'react'
+import { ArrowLeftIcon, ArrowRightIcon, MagnifyingGlassIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
+import { useEffect, useState, useRef } from 'react'
 import { useData } from '../../../../components/context'
 import { Book } from '../../../../services/interfaces'
 
 export default function Hero() {
     const { state, dispatch } = useData();
     const [books, setBooks] = useState<Book[]>([] as Book[]);
-
+    const [selectedBook, setSelectedBook] = useState<number>(1);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
+    
     useEffect(() => {
         dispatch({ type: "BOOKS_PROCESS_REQUEST"});
         setBooks(state.books);
         console.log(state.books);
+        
     }, [state.books]);
-
-    const [selectedBook, setSelectedBook] = useState<number>(1);
 
     const handleClickItem = (id: number) => {
         setSelectedBook(id);
+        scrollTo(id);
+    }
+
+    const scrollLeft = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+        }
+    };
+
+    const scrollRight = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    };
+
+    const scrollTo = (id: number) => {
+        if (scrollContainerRef.current) {
+            const selectedElement = scrollContainerRef.current.querySelector(`[data-id='${id}']`);
+            if (selectedElement) {
+                selectedElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+    }
+
+    const handleSearch = () => {
+        if (searchInputRef.current) {
+            const search = searchInputRef.current.value;
+            if(search.length > 0) {
+                const filteredBooks = books.filter((book) => book.title.toLowerCase().includes(search.toLowerCase()));
+                setSelectedBook(filteredBooks[0].id);
+                scrollTo(filteredBooks[0].id);
+            }
+            searchInputRef.current.value = '';
+        }
     }
 
   return (
@@ -34,8 +70,12 @@ export default function Hero() {
             </div>
             <Shape position="right" rotation={0} />
             <div className="flex flex-col justify-center items-center md:items-start space-y-4">
-                <h1 className="font-[Montserrat] text-lg md:text-8xl font-extrabold text-gray-900">{books[selectedBook - 1]?.title}</h1>
-                <p className="font-[Montserrat] text-sm md:text-lg text-gray-700">{books[selectedBook - 1]?.note}</p>
+                <h1 className="font-[Montserrat] text-lg md:text-8xl font-extrabold text-gray-900 lg:h-[195px] lg:overflow-hidden">{books[selectedBook - 1]?.title}</h1>
+                <p className="font-[Montserrat] text-sm md:text-lg text-gray-700 lg:whitespace-nowrap">
+                    {books[selectedBook - 1]?.description.length > 50 
+                        ? `${books[selectedBook - 1]?.description.substring(0, 50)}...` 
+                        : books[selectedBook - 1]?.description}
+                </p>
                 <div className="flex space-x-4">
                 <button className="px-4 py-2 bg-white rounded-full">More Info</button>
                 <button className="px-4 py-2 bg-[#DCF763] border border-[#435058] rounded-full flex items-center">Buy Now
@@ -46,14 +86,24 @@ export default function Hero() {
         </div>
         <div className="rounded-[52px] bg-[#ffffff90] w-full lg:w-[calc(100%+300px)] lg:left-[-150px] h-max p-6 top-13 relative z-10">
             <div className="mx-auto max-w-2xl flex flex-col gap-8">
-                <div className="flex items-center rounded-full border-2 border-[#43505815] pr-4 bg-gradient-to-r from-[#E6E5D3] to-[#EAFAEF]">
-                    <MagnifyingGlassIcon className="h-16 p-4" />
-                    <input type="text" placeholder="Search" className="w-full p-2 font-medium focus:outline-none" />
-                    <button className="hover:cursor-pointer p-2 font-bold bg-[#435058] px-10 rounded-full text-white">Search</button>
+                <div className="flex items-center rounded-full border-2 border-[#43505815] md:pr-4 pl-4 md:pl-0 bg-gradient-to-r from-[#E6E5D3] to-[#EAFAEF]">
+                    <MagnifyingGlassIcon className="h-16 p-4 hidden md:block" />
+                    <input ref={searchInputRef} type="text" placeholder="Search" className="w-full p-2 font-medium focus:outline-none" />
+                    <button onClick={handleSearch} className="hover:cursor-pointer p-2 font-bold bg-[#435058] md:px-10 rounded-full text-white">
+                       <span className="hidden md:block">Search</span>
+                       <MagnifyingGlassIcon className="h-6 md:hidden" />
+                    </button>
                 </div>
-                <div className="pt-4 overflow-x-auto inline-flex justify-center gap-4 no-scrollbar">
+                
+                <div className="pt-4 overflow-x-auto inline-flex justify-start gap-4 no-scrollbar" ref={scrollContainerRef}>
+                    <div onClick={scrollLeft} className="opacity-5 hover:opacity-100 hidden lg:block z-1 hover:cursor-pointer p-2 hover:bg-[#DCF763] border hover:border-[#435058] bg-[#DCF763] rounded-full absolute top-50 left-30">
+                        <ArrowLeftIcon className="h-6 w-6 text-gray-700" />
+                    </div>
+                    <div onClick={scrollRight} className="opacity-5 hover:opacity-100 hidden lg:block z-1 hover:cursor-pointer p-2 hover:bg-[#DCF763] border hover:border-[#435058] bg-[#DCF763] rounded-full absolute top-50 right-30">
+                        <ArrowRightIcon className="h-6 w-6 text-gray-700" />
+                    </div>
                     {books.map((book: Book) => (
-                        <div key={book.id} className={`hover:cursor-pointer relative ${selectedBook === book.id ? 'bottom-4' : ''}`}>
+                        <div key={book.id} data-id={book.id} className={`hover:cursor-pointer relative ${selectedBook === book.id ? 'bottom-4' : ''}`}>
                             <div onClick={() => handleClickItem(book.id)} className="overflow-x-hidden flex items-end rounded-lg border bg-[#43505808] border-[#43505825] hover:border-[#43505850] h-40 min-w-40 w-40">
                                 <img src={book.img} alt="Book" className="pb-0 px-10 pt-10" />
                             </div>

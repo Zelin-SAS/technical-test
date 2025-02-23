@@ -65,25 +65,27 @@ export default function Library() {
     const handleFillterBook = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const filter = e.target.value;
         switch(filter) {
+            case "all":
+                setBooks(state.books);
+                break;
             case "recent":
-                const recentBooks = state.books.sort((a: Book, b: Book) => new Date(b.lastModificationDate).getTime() - new Date(a.lastModificationDate).getTime());
-                dispatch({ type: "BOOKS_FETCH", payload: recentBooks });
+                const recentBooks = [...state.books].sort((a: Book, b: Book) => new Date(b.last_modification).getTime() - new Date(a.last_modification).getTime());
+                setBooks(recentBooks);
                 break;
             case "increasing":
-                const increasingBooks = state.books.sort((a: Book, b: Book) => a.title.localeCompare(b.title));
-                dispatch({ type: "BOOKS_FETCH", payload: increasingBooks });
+                const increasingBooks = [...state.books].sort((a: Book, b: Book) => a.title.localeCompare(b.title));
+                setBooks(increasingBooks);
                 break;
             case "decreasing":
-                const decreasingBooks = state.books.sort((a: Book, b: Book) => b.title.localeCompare(a.title));
-                dispatch({ type: "BOOKS_FETCH", payload: decreasingBooks });
+                const decreasingBooks = [...state.books].sort((a: Book, b: Book) => b.title.localeCompare(a.title));
+                setBooks(decreasingBooks);
                 break;
         }
-        setBooks(state.books);
     }
 
 
     return (
-    <>
+    <> 
         <div className="flex flex-col w-full  h-screen p-4">
             <div className="w-full rounded-lg shadow-sm p-4 mb-4 bg-white">
                 <div className="flex flex-wrap gap-2 justify-between items-center">
@@ -109,19 +111,22 @@ export default function Library() {
                     </div>
                 </div>
             </div>
-            <div className="h-full p-4 flex flex-wrap rounded-lg shadow-sm gap-7 bg-white overflow-y-scroll">
-                {books.map((book) => (
-                <AdminBookCard 
-                    key={book.id}
-                    title={book.title}
-                    img={book.img}
-                    lastUpdate={new Date(book.lastModificationDate)}
-                    author={book.author}
-                    onEdit={() => { setSelectedBook(book); setIsOpen(!isOpen)}}
-                    onDelete={() => handleDelete(book.id)}
-                />
-                ))}
-            </div>
+            { books.length == 0 && <div className="flex justify-center items-center h-screen">No books found</div> }
+            { books.length > 0 &&
+                <div className="h-full p-4 flex flex-wrap rounded-lg shadow-sm gap-7 bg-white overflow-y-scroll no-scrollbar">
+                    {books.map((book) => (
+                    <AdminBookCard 
+                        key={book.id}
+                        title={book.title}
+                        img={book.img}
+                        lastUpdate={new Date(book.last_modification)}
+                        author={book.author}
+                        onEdit={() => { setSelectedBook(book); setIsOpen(!isOpen)}}
+                        onDelete={() => handleDelete(book.id)}
+                    />
+                    ))}
+                </div>
+            }
         </div>
         <Drawer 
             size="md" 
