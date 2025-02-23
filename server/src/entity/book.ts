@@ -3,7 +3,7 @@ import Database, { BookAttributes } from "../services/database";
 import { isImageUrlValid } from "../services/imageValidator";
 import bookSeeds from "../seeds/book";
 
-class Book {
+export default class Book {
 	private static database: Database;
 	private static seeds: BookAttributes[];
 
@@ -84,7 +84,6 @@ class Book {
 				if (err) {
 					res.status(500).send(err);
 				} else {
-					console.log(result);
 					const book = new Book({
 						id: result?.insertId || 0,
 						title,
@@ -150,5 +149,3 @@ class Book {
 		);
 	}
 }
-
-export default Book;

@@ -9,10 +9,8 @@ done
 npm start &
 
 # Wait 5 seconds
-sleep 5 
+sleep 5
 
-# Run npm test
-npm test &
-
-# Wait for the tests to finish
-wait
+# Load the seeds into the database
+curl -X PUT http://localhost:$BACKEND_PORT/books/loadSeeds &
+curl -X PUT http://localhost:$BACKEND_PORT/users/loadSeeds

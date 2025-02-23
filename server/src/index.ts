@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 import Database from "./services/database";
 import AppRouter from "./services/router";
 import Book from "./entity/book";
+import User from "./entity/user";
 import cors from "cors";
+import path from "path";
 
 dotenv.config();
 
@@ -14,7 +16,7 @@ const db = new Database({
 	database: process.env.DB_NAME,
 });
 
-const entities = [Book];
+const entities = [Book, User];
 
 entities.forEach((entity) => entity.setDatabase(db));
 
@@ -56,7 +58,37 @@ const routes = [
 		method: "patch",
 		path: "/book/:id",
 		handler: (req: any, res: any) => Book.updateBook(req, res),
-	}
+	},
+	{
+		method: "post",
+		path: "/login",
+		handler: (req: any, res: any) => User.login(req, res),
+	},
+	{
+		method: "post",
+		path: "/users",
+		handler: (req: any, res: any) => User.addUser(req, res),
+	},
+	{
+		method: "get",
+		path: "/users",
+		handler: (req: any, res: any) => User.getAllUsers(req, res),
+	},
+	{
+		method: "put",
+		path: "/users/loadSeeds",
+		handler: (req: any, res: any) => User.loadSeeds(req, res),
+	},
+	{
+		method: "patch",
+		path: "/user/:id",
+		handler: (req: any, res: any) => User.updateUser(req, res),
+	},
+	{
+		method: "delete",
+		path: "/user/:id",
+		handler: (req: any, res: any) => User.deleteUser(req, res),
+	},
 ];
 
 routes.forEach((route) =>

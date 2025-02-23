@@ -6,6 +6,9 @@ WORKDIR /app
 # Install nc to check if the backend is up
 RUN apt-get update && apt-get install -y netcat-traditional
 
+# Install curl
+RUN apt-get update && apt-get install -y curl
+
 # Bundle app source
 COPY . .
 

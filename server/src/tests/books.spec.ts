@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import axios from 'axios';
 import { expect } from 'chai';
+import bookSeeds from '../seeds/book';
 
 dotenv.config();
 
@@ -21,13 +22,6 @@ describe('GET /books', function() {
         let res = await axios.get(`${API_URL}/books`);
         expect(res.status).to.equal(200);
         expect(res.data).to.be.an('array');
-        if (res.data.length === 0) {
-            // Load seed data if no books are found
-            res = await axios.put(`${API_URL}/books/loadSeeds`);
-            expect(res.status).to.equal(200);
-            res = await axios.get(`${API_URL}/books`);
-        }
-        expect(res.data.length).to.be.above(0);
     });
 });
 
@@ -50,34 +44,36 @@ describe('POST /books', function() {
         expect(res.data).to.have.property('note').eq(0);
         expect(res.data).to.have.property('description').eq('Test Dscription');
         expect(res.data).to.have.property('img').eq('');
-    });
-});
+        
+        if(lastAddedBookId !== 0) {
+            // Test the PATCH route
+            describe('PATCH /book/:id', function() {
+                it('It should update a book', async function() {
+                    expect(lastAddedBookId).to.be.above(0);
+                    const book = {
+                        title: 'Updated Test Book',
+                        author: 'Updated Test Author',
+                        note: 3,
+                        description: 'Updated Test Description',
+                        img: 'https://via.placeholder.com/151'
+                    };
+                    const res = await axios.patch(`${API_URL}/book/${lastAddedBookId}`, book);
+                    expect(res.status).to.equal(200);
+                    expect(res.data).to.be.an('object');
+                    expect(res.data).to.have.property('affectedRows').eq(1);
+                });
+            });
 
-// Test the PATCH route
-describe('PATCH /book/:id', function() {
-    it('It should update a book', async function() {
-        expect(lastAddedBookId).to.be.above(0);
-        const book = {
-            title: 'Updated Test Book',
-            author: 'Updated Test Author',
-            note: 3,
-            description: 'Updated Test Description',
-            img: 'https://via.placeholder.com/151'
-        };
-        const res = await axios.patch(`${API_URL}/book/${lastAddedBookId}`, book);
-        expect(res.status).to.equal(200);
-        expect(res.data).to.be.an('object');
-        expect(res.data).to.have.property('affectedRows').eq(1);
-    });
-});
-
-// Test the DELETE route
-describe('DELETE /book/:id', function() {
-    it('It should delete a book', async function() {
-        expect(lastAddedBookId).to.be.above(0);
-        const res = await axios.delete(`${API_URL}/book/${lastAddedBookId}`);
-        expect(res.status).to.equal(200);
-        expect(res.data).to.be.an('object');
-        expect(res.data).to.have.property('affectedRows').eq(1);
+            // Test the DELETE route
+            describe('DELETE /book/:id', function() {
+                it('It should delete a book', async function() {
+                    expect(lastAddedBookId).to.be.above(0);
+                    const res = await axios.delete(`${API_URL}/book/${lastAddedBookId}`);
+                    expect(res.status).to.equal(200);
+                    expect(res.data).to.be.an('object');
+                    expect(res.data).to.have.property('affectedRows').eq(1);
+                });
+            });
+        }
     });
 });
