@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 import LogoLight from '../../../../assets/zbook-logo-1.svg'
 import { useEffect } from 'react';
 
-interface Props {
+type Props = {
     sectionRefs: React.RefObject<HTMLDivElement | null>[];
 }
 
@@ -37,7 +36,7 @@ export default function Header({ sectionRefs } : Props) {
     const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
         const index = e.currentTarget.getAttribute('data-id');
         setNavigation(navigation.map((item) => ({ ...item, active: item.id - 1 === Number(index) })));
-        
+
         if (index !== null && !isNaN(Number(index))) {
             const offset = index === '0' ? 0 : -100;
             const element = sectionRefs[Number(index)]?.current;
@@ -73,16 +72,6 @@ export default function Header({ sectionRefs } : Props) {
                         {item.name}
                         </a>
                     ))}
-                </div>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <button className="text-sm font-semibold text-gray-900 mr-4 bg-[#435058] rounded-full p-2">
-                        <ShoppingBagIcon className="h-4 w-4 text-[#DCF763]" />
-                    </button>
-                    {/* <button className="text-sm font-semibold text-gray-900 mr-4 rounded-full border border-[#F1F2EE] p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                        </svg>
-                    </button> */}
                 </div>
                 <a
 					href="/login"

@@ -1,15 +1,23 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Book } from "../../services/interfaces"
 import Stars from "../stars"
 
-interface Props {
+type Props = {
     book?: Book | null
     onCancel: () => void
     onSave: (book: Book | null | undefined) => void
 }
 
 export const BookForm = ({ book, onCancel, onSave } : Props) => {
-    const [formBook, setFormBook] = useState<Book | null | undefined>(book);
+    const [formBook, setFormBook] = useState<Book | null | undefined>({
+        id: 0,
+        title: "",
+        author: "",
+        note: 0,
+        description: "",
+        last_modification: new Date(),
+        img: ""
+    });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if(!formBook) {
@@ -25,9 +33,16 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
         }
         setFormBook({
             ...formBook,
-            [e.target.name]: e.target.value || ""
+            [e.target.name]: e.target.value
         } as Book);
     }
+
+    useEffect(() => {
+        if(book) {
+            setFormBook(book);
+        }
+    }, [book]);
+
     return (
     <div className="flex flex-col h-full justify-between">
         <div className=" px-4 sm:px-6 mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -44,6 +59,7 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                         value={formBook?.title}
                         onChange={handleInputChange}
                         placeholder="The Hobbit"
+                        required
                         className="block w-full py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/8"
                     />
                     </div>
@@ -62,6 +78,7 @@ export const BookForm = ({ book, onCancel, onSave } : Props) => {
                         value={formBook?.author}
                         onChange={handleInputChange}
                         placeholder="J.R.R. Tolkien"
+                        required
                         className="block w-full py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/8"
                     />
                     </div>

@@ -3,17 +3,16 @@ import NotFound from "../../assets/notFoundImage.png"
 import { Confirm } from "../modal";
 import { useState } from "react";
 
-interface AdminProps {
+type AdminProps = {
   img: string;
   title: string;
-  lastUpdate: Date;
   author: string;
   onEdit: () => void;
   onDelete: () => void;
 }
 
 
-export function AdminBookCard({img, title, lastUpdate, author, onEdit, onDelete } : AdminProps) {
+export function AdminBookCard({img, title, author, onEdit, onDelete } : AdminProps) {
     const [open, setOpen] = useState<boolean>(false);
     
     const handleDelete = () => {
@@ -21,40 +20,28 @@ export function AdminBookCard({img, title, lastUpdate, author, onEdit, onDelete 
     }
 
     return (
-        <article className="rounded-lg shadow-lg w-max h-max bg-white">
-            <a href="#">
-                <img alt="Placeholder" className="block h-100 w-80 " src={img != "" ? img : NotFound}></img>
-            </a>
-
-            <header className="flex items-center justify-between leading-tight p-2 md:p-4">
-                <h1 className="text-lg">
-                    <a className="no-underline hover:underline text-black" href="#">
-                        {title}
-                    </a>
-                </h1>
-                <p className="text-grey-darker text-sm hidden">
-                    {lastUpdate.toLocaleString()}
-                </p>
-            </header>
-
-            <footer className="flex items-center justify-between leading-none p-2 md:p-4">
-                <a className="flex items-center no-underline hover:underline text-black" href="#">
-                    {/* <img alt="Placeholder" className="block rounded-full" src="https://picsum.photos/32/32/?random"></img> */}
-                    <p className="ml-2 text-sm">
-                        {author}
-                    </p>
-                </a>
-                <div className="flex space-x-2">
-                    <button className="hover:cursor-pointer text-grey-darker hover:text-blue-dark" onClick={onEdit}>
-                        <span className="hidden">Edit</span>
-                        <PencilIcon aria-hidden="true" className="size-4"></PencilIcon>
-                    </button>
-                    <button className="hover:cursor-pointer text-grey-darker hover:text-red-dark" onClick={handleDelete}>
-                        <span className="hidden">Delete</span>
-                        <TrashIcon aria-hidden="true" className="size-4"></TrashIcon>
-                    </button>
+        <>
+            <div className="flex flex-col">
+                <div className="flex justify-center rounded-[24px] shadow-lg w-60 h-96 overflow-hidden">
+                    <div className="relative">
+                        <img src={img != "" ? img : NotFound} alt="book cover" className="h-full w-full" />
+                        <div className="absolute top-2 right-2 flex items-center justify-start gap-1 shadow-md">
+                            <button className="hover:cursor-pointer bg-[#DCF763] border border-[#435058] rounded-full p-1 px-2" onClick={onEdit}>
+                                <span className="hidden">Edit</span>
+                                <PencilIcon aria-hidden="true" className="size-4"></PencilIcon>
+                            </button>
+                            <button className="hover:cursor-pointer bg-[#DCF763] hover:bg-red-600 hover:text-white border border-[#435058] rounded-full p-1 px-2" onClick={handleDelete}>
+                                <span className="hidden">Delete</span>
+                                <TrashIcon aria-hidden="true" className="size-4"></TrashIcon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+                <div className="flex flex-col items-center justify-center mt-2">
+                    <h1 className="text-lg font-semibold">{title}</h1>
+                    <p className="text-sm text-gray-500">{author}</p>
+                </div>
+            </div>
 
             <Confirm
                 isOpen={open}
@@ -63,12 +50,11 @@ export function AdminBookCard({img, title, lastUpdate, author, onEdit, onDelete 
                 title="Delete Book"
                 message="Are you sure you want to delete this book?"
             />
-
-        </article>
+        </>
     )
 }
 
-interface Props {
+type Props = {
     img: string;
     title: string;
     author: string;
@@ -80,7 +66,7 @@ export function BookCard({img, title, author, note } : Props) {
         <div className="flex flex-col">
             <div className="flex justify-center rounded-[24px] shadow-lg w-60 h-96 overflow-hidden">
                 <div className="relative">
-                    <img src={img} alt="book cover" className="h-full w-full" />
+                    <img src={img != "" ? img : NotFound} alt="book cover" className="h-full w-full" />
                     <div className="absolute top-2 left-2 bg-[#DCF763] border border-[#435058] rounded-full flex items-center justify-start p-1 px-2 gap-1 shadow-md">
                         <StarIcon className="size-4" />
                         <div className="size-4 text-sm font-semibold">{note}</div>

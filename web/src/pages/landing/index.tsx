@@ -7,12 +7,15 @@ import { fetchBooks } from '../../services/models';
 import { useData } from '../../components/context';
 import NewArrival from './sections/newArrival';
 import Shape from '../../components/decoration/shape';
+import Contact from './sections/contact';
+import Footer from './sections/footer';
 
 export default function Landing() {
   const { state, dispatch } = useData();
   const homeRef = createRef<HTMLDivElement>();
   const categoryRef = createRef<HTMLDivElement>();
   const newArrivalRef = createRef<HTMLDivElement>();
+  const contactRef = createRef<HTMLDivElement>();
 
   const fetchData = () => {
     dispatch({ type: "BOOKS_PROCESS_REQUEST"});
@@ -31,7 +34,7 @@ export default function Landing() {
 
   return (
     <div>
-      <Header sectionRefs={[homeRef, categoryRef, newArrivalRef]}/>
+      <Header sectionRefs={[homeRef, categoryRef, newArrivalRef, contactRef]}/>
       <div className="relative isolate px-6 pt-14 lg:px-8" ref={homeRef}>
         <Light colors={['#DCF763', '#BFB7B6']} position="center" />
         <Hero />
@@ -44,6 +47,10 @@ export default function Landing() {
       <div className="my-20 px-6 lg:px-20 w-full" ref={newArrivalRef}>
         <NewArrival />
       </div>
+      <div className="my-20 px-6 lg:px-20 w-full flex justify-center" ref={contactRef}>
+        <Contact />
+      </div>
+      <Footer navigationRef={[homeRef, categoryRef, newArrivalRef, contactRef]} />
     </div>
   )
 }

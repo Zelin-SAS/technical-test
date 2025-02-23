@@ -119,7 +119,6 @@ export default function Library() {
                         key={book.id}
                         title={book.title}
                         img={book.img}
-                        lastUpdate={new Date(book.last_modification)}
                         author={book.author}
                         onEdit={() => { setSelectedBook(book); setIsOpen(!isOpen)}}
                         onDelete={() => handleDelete(book.id)}

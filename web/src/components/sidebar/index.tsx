@@ -7,6 +7,7 @@ import { useData } from '../context';
 import { Book, SidebarSection } from '../../services/interfaces';
 import { createBook } from '../../services/models';
 import { UserLogin } from '../../services/interfaces';
+import { Toast } from '../toast';
 
 type SidebarProps = {
     sections: SidebarSection[];
@@ -19,13 +20,20 @@ export default function Sidebar({ sections, currentUser, onClickSection, onLogou
     const { dispatch } = useData();
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [activeSection, setActiveSection] = useState<string>("Library");
+    const [isToasAddOpen, setIsToastAddOpen] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
 
     const handleAddBook = (book: Book | null | undefined) => {
-        if(book) {
+        if(book?.title && book?.author) {
             createBook(book).then(() => {
                 dispatch({ type: "BOOKS_CLEAR"});
                 setIsDrawerOpen(false);
+                setIsToastAddOpen(true);
+            }).catch(() => {
+                setError(true);
             });
+        } else {
+            setError(true);
         }
     }
 
@@ -79,6 +87,8 @@ export default function Sidebar({ sections, currentUser, onClickSection, onLogou
             onClose={() => setIsDrawerOpen(false)}>
             <BookForm book={null} onCancel={() => setIsDrawerOpen(false)} onSave={(book) => handleAddBook(book)} />
         </Drawer>
+        <Toast isOpen={isToasAddOpen} title="Successfully saved!" message="The book has been added successfully" type="success" onClose={() => setIsToastAddOpen(false)} />
+        <Toast isOpen={error} title="Failed!" message="Something went wrong while adding the book." type="error" onClose={() => setError(false)} />
     </div>
   )
 }
