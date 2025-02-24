@@ -29,17 +29,21 @@ export default class Book {
 				if (err) {
 					res.status(500).send(err);
 				} else {
-					const books = results ? results.map(
-						(row: any) => new Book({
-							id: row.id,
-							title: row.title,
-							author: row.author,
-							note: row.note,
-							description: row.description,
-							last_modification: row.last_modification_date,
-							img: row.img,
-						}).attributes
-					) : [];
+					const books = results
+						? results.map(
+								(row: any) =>
+									new Book({
+										id: row.id,
+										title: row.title,
+										author: row.author,
+										note: row.note,
+										description: row.description,
+										last_modification:
+											row.last_modification_date,
+										img: row.img,
+									}).attributes,
+							)
+						: [];
 					res.send(books);
 				}
 			},
@@ -63,7 +67,8 @@ export default class Book {
 								author: results[0].author,
 								note: results[0].note,
 								description: results[0].description,
-								last_modification: results[0].last_modification_date,
+								last_modification:
+									results[0].last_modification_date,
 								img: results[0].img,
 							}).attributes
 						: null;
@@ -102,7 +107,7 @@ export default class Book {
 	static async updateBook(req: any, res: any): Promise<void> {
 		const id = req.params.id;
 		const { title, author, note, description, img } = req.body;
-		const validImage = await isImageUrlValid(img) ? img : "";
+		const validImage = (await isImageUrlValid(img)) ? img : "";
 		Book.isDatabaseSet();
 		Book.database.query(
 			"UPDATE books SET title = ?, author = ?, note = ?, description= ?, img = ? WHERE id = ?",
@@ -145,7 +150,7 @@ export default class Book {
 					res.send(result);
 				}
 			},
-			true
+			true,
 		);
 	}
 }

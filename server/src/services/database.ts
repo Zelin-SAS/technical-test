@@ -32,7 +32,10 @@ class Database {
 				if (multipleValuesParams) {
 					var [results] = await this.connection.query<T>(sql, params);
 				} else {
-					var [results] = await this.connection.execute<T>(sql, params);
+					var [results] = await this.connection.execute<T>(
+						sql,
+						params,
+					);
 				}
 				if (callback) {
 					callback(null, results);
@@ -58,14 +61,14 @@ class Database {
 }
 
 export type BookAttributes = {
-    id: number;
-    title: string;
-    author: string;
-    note: number;
-    description: string;
-    last_modification: Date;
-    img: string;
-}
+	id: number;
+	title: string;
+	author: string;
+	note: number;
+	description: string;
+	last_modification: Date;
+	img: string;
+};
 
 export type UserAttributes = {
 	id: number;
@@ -73,6 +76,6 @@ export type UserAttributes = {
 	userlastname: string;
 	email: string;
 	password: string;
-}
+};
 
 export default Database;
