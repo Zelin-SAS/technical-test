@@ -9,8 +9,9 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_R_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_TCP_PORT: ${DB_PORT}
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   
   backend:
@@ -45,13 +46,6 @@ services:
     volumes:
       - ./web:/app
       - /app/node_modules
-    # develop:
-    #   watch:
-    #     - action: sync+restart
-    #       path: ./web
-    #       target: /app
-    #       ignore:
-    #         - node_modules
     restart: on-failure
     env_file:
       - .env

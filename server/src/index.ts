@@ -5,15 +5,15 @@ import AppRouter from "./services/router";
 import Book from "./entity/book";
 import User from "./entity/user";
 import cors from "cors";
-import path from "path";
 
 dotenv.config();
 
 const db = new Database({
 	host: process.env.DB_HOST || "localhost",
 	user: process.env.DB_USER,
-	password: process.env.DB_PASSWORD,
+	password: process.env.DB_ROOT_PASSWORD,
 	database: process.env.DB_NAME,
+	port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
 });
 
 const entities = [Book, User];
