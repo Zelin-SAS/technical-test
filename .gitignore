@@ -1,0 +1,4 @@
+.env*
+server/.npm
+server/node_modules
+web/node_modules

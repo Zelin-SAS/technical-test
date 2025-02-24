@@ -1,31 +1,62 @@
-# Build a dockerized Full-Stack TypeScript application
-You’re free to choose your stack : 
-- For the Front-End, you can choose between Angular, React or Vue.js.
-- For the Back-End, you should use Node.js but you can choose between libraries.
-- For the Database, you can choose between SQL or NoSQL databases. 
-- For the API, you can choose between Graphql or REST.
-- Your application must have a Database to save data. This Database can be hosted online or locally ( In case you have an online Database, for security reasons, create a Database only for this project and don't forget to delete it or change the credentials AFTER the interview process ).
-- Your application must be dockerized
+# Zebook
 
-## The application is a personal library
+Welcome to the zebook project!
 
-As a user :
+## Getting Started
 
-- I can see the list of my books. Each book has these properties : title, author, note, last modification date, ...
-- I can add a new book to the list
-- I can edit a book's properties
-- I can delete a book from the list
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
-## Bonus Points
-#### Turn your application to a multi-user application ( Signing up, authentication, ... is NOT necessary )
-#### Add a search bar to your application to only show the searched title
-#### Make your application "responsive"
-#### Add more functionalities to your application
+### Prerequisites
 
-## Note :
+Ensure you have the following installed on your machine:
+- [Docker](https://www.docker.com/get-started)
+- [Git](https://git-scm.com/)
 
-- Any creativity specially in design and in functionalities is encouraged.
-- The code's quality is important.
+### Installation
 
-## How to
-You can either fork this repository or push the result to an independent repository on your GitHub page.
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/Zelin-SAS/technical-test.git
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd technical-test
+    ```
+3. Create and fill a .env file based on the .env.example file on the root directory
+   ```
+    DB_ROOT_PASSWORD=
+    ## Better not change from here
+    DB_USER=root
+    DB_HOST=db
+    DB_NAME=book_database
+    DB_PORT=3306
+    FRONTEND_PORT=3000
+    BACKEND_PORT=3001
+   ```
+4. Build and start the Docker containers:
+    ```sh
+    docker compose up --build
+    ```
+
+### Usage
+
+Once the containers are up and running, you can access the application at `http://localhost:<FRONTEND_PORT>`. 
+
+### Admin Panel
+
+To access the admin panel, use one of these following credentials:
+
+- **Email1:** `olivier.z@zebook.com`
+- **Password1:** `admin`
+-------------------
+
+- **Email2:** `alice.smith@zebook.com`
+- **Password3:** `password1`
+
+-------------------
+
+- **Email3:** `charlie.williams@zebook.com`
+- **Password3:** `password3`
+
+
+Enjoy!

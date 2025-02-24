@@ -1,0 +1,55 @@
+services:
+
+  db:
+    image: mysql
+    container_name: book_database
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d/
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_TCP_PORT: ${DB_PORT}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  
+  backend:
+    container_name: book_backend
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    user: zelin
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    working_dir: /app
+    depends_on:
+      - db
+    restart: on-failure
+    env_file:
+      - .env
+
+  frontend:
+    container_name: book_frontend
+    build: 
+      context: ./web
+      dockerfile: Dockerfile
+    user: zelin
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    working_dir: /app
+    depends_on:
+      - backend
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    restart: on-failure
+    env_file:
+      - .env
+
+volumes:
+  mysql_data:
+
