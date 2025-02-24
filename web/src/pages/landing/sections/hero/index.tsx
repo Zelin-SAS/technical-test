@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useData } from '../../../../components/context'
 import { Book } from '../../../../services/interfaces'
 
-export default function Hero() {
+export default function Hero({ onMoreInfo }: { onMoreInfo: (book : Book) => void }) {
     const { state, dispatch } = useData();
     const [books, setBooks] = useState<Book[]>([] as Book[]);
     const [selectedBook, setSelectedBook] = useState<number>(1);
@@ -77,7 +77,7 @@ export default function Hero() {
                         : books[selectedBook - 1]?.description}
                 </p>
                 <div className="flex space-x-4">
-                <button className="px-4 py-2 bg-white rounded-full">More Info</button>
+                <button className="px-4 py-2 bg-white rounded-full hover:cursor-pointer hover:border border-gray-400" onClick={() => onMoreInfo(books[selectedBook - 1])}>More Info</button>
                 <button className="px-4 py-2 bg-[#DCF763] border border-[#435058] rounded-full flex items-center">Buy Now
                     <ShoppingBagIcon className="h-4 w-4 ml-2" />
                 </button>

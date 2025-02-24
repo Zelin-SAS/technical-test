@@ -3,6 +3,7 @@ import LogoLight from '../../assets/zbook-logo-1.svg'
 import { useData } from '../../components/context';
 import { loginUser } from '../../services/models';
 import { Toast } from '../../components/toast';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 
 export default function Login() {
     const { dispatch } = useData();
@@ -101,9 +102,9 @@ export default function Login() {
             </form>
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">
-              Not a member?{' '}
-              <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                Start a 14 day free trial
+              <ExclamationTriangleIcon className="h-4 w-4 inline-block text-yellow-500" />
+              <a href="#" className="font-semibold text-gray-800 hover:text-indigo-500">
+                This section is only for administrators and staff members of Zebook.
               </a>
             </p>
           </div>

@@ -88,7 +88,7 @@ export default function Library() {
     <> 
         <div className="flex flex-col w-full  h-screen p-4">
             <div className="w-full rounded-lg shadow-sm p-4 mb-4 bg-white">
-                <div className="flex flex-wrap gap-2 justify-between items-center">
+                <div className="flex flex-wrap gap-2 justify-center md:justify-between items-center">
                     <div className="flex items-center">
                         <div className="flex items-center rounded-md bg-white pl-3 pr-3 outline-1 -outline-offset-1 outline-gray-300">
                             <Select 
@@ -113,7 +113,7 @@ export default function Library() {
             </div>
             { books.length == 0 && <div className="flex justify-center items-center h-screen">No books found</div> }
             { books.length > 0 &&
-                <div className="h-full p-4 flex flex-wrap rounded-lg shadow-sm gap-7 bg-white overflow-y-scroll no-scrollbar">
+                <div className="h-full p-4 px-15 flex flex-wrap rounded-lg shadow-sm gap-7 bg-white overflow-y-scroll no-scrollbar">
                     {books.map((book) => (
                     <AdminBookCard 
                         key={book.id}

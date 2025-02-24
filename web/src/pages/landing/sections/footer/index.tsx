@@ -42,7 +42,7 @@ export default function Footer({navigationRef }: {navigationRef: React.RefObject
     return (
     <footer className="bg-gray-800 text-white pt-12 pb-8 px-4" ref={footerRefs}>
         <div className="mx-auto px-4 container overflow-hidden flex flex-col lg:flex-row justify-between">
-            <a href="#" className="flex items-start">
+            <a className="flex items-start">
                 <img src={logo} alt="ZBook Logo" className="h-8 w-auto" />
                 <span className="ml-2 text-xl font-bold text-[#DCF763]">ZeBook</span>
             </a>
@@ -57,15 +57,15 @@ export default function Footer({navigationRef }: {navigationRef: React.RefObject
                 </ul>
                 <ul className="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
                     <li className="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Company</li>
-                    <li><a href="#" className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Privacy</a>
+                    <li><a className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Privacy</a>
                     </li>
-                    <li><a href="#" className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Terms of Service</a></li>
+                    <li><a className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Terms of Service</a></li>
                 </ul>
                 <ul className="text-gray-700 list-none p-0 font-thin flex flex-col text-left w-full">
                     <li className="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Developers</li>
-                    <li><a href="#" className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Developer API</a></li>
-                    <li><a href="#" className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Documentation</a></li>
-                    <li><a href="#" className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Guides</a></li>
+                    <li><a className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Developer API</a></li>
+                    <li><a className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Documentation</a></li>
+                    <li><a className="inline-block py-2 px-3 text-gray-500 hover:text-white no-underline">Guides</a></li>
                 </ul>
                 <div className="text-gray-700 flex flex-col w-full">
                     <div className="inline-block py-2 px-3 text-white uppercase font-medium tracking-wide">Follow Us</div>

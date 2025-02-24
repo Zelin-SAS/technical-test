@@ -50,12 +50,10 @@ export default function Header({ sectionRefs } : Props) {
     return (
         <header className="fixed inset-x-0 top-0 z-50" ref={headerRef}>
             <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
-                <div className="flex lg:flex-1">
-                    <a href="#" className="flex items-center">
-                        <img src={LogoLight} alt="ZBook Logo" className="h-8 w-auto" />
-                        <span className="ml-2 text-xl font-bold text-gray-900">ZeBook</span>
-                    </a>
-                </div>
+                <a href="#" className="flex items-center">
+                    <img src={LogoLight} alt="ZBook Logo" className="h-8 w-auto" />
+                    <span className="ml-2 text-xl font-bold text-gray-900">ZeBook</span>
+                </a>
                 <div className="flex lg:hidden">
                 <button
                     type="button"

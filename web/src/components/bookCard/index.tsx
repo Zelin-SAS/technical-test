@@ -2,6 +2,7 @@ import { PencilIcon, StarIcon, TrashIcon } from "@heroicons/react/24/solid";
 import NotFound from "../../assets/notFoundImage.png"
 import { Confirm } from "../modal";
 import { useState } from "react";
+import { Book } from "../../services/interfaces";
 
 type AdminProps = {
   img: string;
@@ -55,27 +56,25 @@ export function AdminBookCard({img, title, author, onEdit, onDelete } : AdminPro
 }
 
 type Props = {
-    img: string;
-    title: string;
-    author: string;
-    note: number;
+    book: Book;
+    onMoreInfo: (book: Book) => void;
 }
 
-export function BookCard({img, title, author, note } : Props) {
+export function BookCard({book, onMoreInfo } : Props) {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col hover:cursor-pointer" onClick={() => onMoreInfo(book)}>
             <div className="flex justify-center rounded-[24px] shadow-lg w-60 h-96 overflow-hidden">
                 <div className="relative">
-                    <img src={img != "" ? img : NotFound} alt="book cover" className="h-full w-full" />
+                    <img src={book.img != "" ? book.img : NotFound} alt="book cover" className="h-full w-full" />
                     <div className="absolute top-2 left-2 bg-[#DCF763] border border-[#435058] rounded-full flex items-center justify-start p-1 px-2 gap-1 shadow-md">
                         <StarIcon className="size-4" />
-                        <div className="size-4 text-sm font-semibold">{note}</div>
+                        <div className="size-4 text-sm font-semibold">{book.note}</div>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col items-center justify-center mt-2">
-                <h1 className="text-lg font-semibold">{title}</h1>
-                <p className="text-sm text-gray-500">{author}</p>
+                <h1 className="text-lg font-semibold">{book.title}</h1>
+                <p className="text-sm text-gray-500">{book.author}</p>
             </div>
         </div>
     )
